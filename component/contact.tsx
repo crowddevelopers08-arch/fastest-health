@@ -283,7 +283,7 @@ const ContactSection = () => {
 
               {/* Submit Button */}
 
-              <div className=" text-center">
+              <div className=" text-center max-sm:mt-5">
                 <div className="relative inline-block">
                   {/* Background decoration */}
                   <div className="absolute -inset-3 bg-gradient-to-r from-[#d9534f] to-[#e74c3c] rounded-full blur-md opacity-20"></div>

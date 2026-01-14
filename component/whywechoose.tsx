@@ -258,8 +258,8 @@ const WhyChooseSection = () => {
           </div>
 
           {/* Secondary CTA */}
-          <a href="#contact" className="group flex w-full sm:w-auto px-9 py-3 bg-white bg-opacity-10 backdrop-blur-lg text-black rounded-full font-bold text-md border-2 border-white border-opacity-30 hover:bg-opacity-20 hover:border-opacity-50 shadow-xl transform hover:-translate-y-2 transition-all duration-300">
-            <span className="flex items-center justify-center gap-2">
+          <a href="#contact" className="group flex sm:w-auto px-9 py-3 bg-white bg-opacity-10 backdrop-blur-lg text-black rounded-full font-bold text-md border-2 border-white border-opacity-30 hover:bg-opacity-20 hover:border-opacity-50 shadow-xl transform hover:-translate-y-2 transition-all duration-300">
+            <span className="flex items-center justify-center font-semibold gap-2">
               Learn More About Us
               <svg
                 className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300"
@@ -281,9 +281,13 @@ const WhyChooseSection = () => {
         {/* Trust Badge */}
         <div className="text-center max-sm:mt-4 mt-12">
           <div className="inline-flex items-center gap-3 bg-white bg-opacity-10 backdrop-blur-lg px-6 py-3 rounded-full border border-white border-opacity-20">
-            <ShieldCheck className="w-6 h-6 text-white" />
-            <span className="text-black font-semibold text-sm">
-              NABL-Accredited | ISO-Certified | Trusted by 100,000+ Users
+             <span className="hidden sm:inline text-black font-semibold text-sm">
+                NABL-Accredited | ISO-Certified | Trusted by 100,000+ Users
+            </span>
+
+            {/* Mobile only */}
+            <span className="sm:hidden text-black font-semibold text-sm">
+                NABL-Accredited | ISO-Certified | Trusted
             </span>
           </div>
         </div>

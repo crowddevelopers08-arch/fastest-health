@@ -169,12 +169,6 @@ const FastestNameSection = () => {
 
         {/* CTA Section */}
         <div className="text-center relative">
-          {/* Glowing Effect Behind Button */}
-          {/* <div 
-            className="absolute top-1/1 left-1/1 -translate-x-1/1 -translate-y-1/ w-64 h-32 rounded-full opacity-10 blur-xl"
-            style={{background: '#d9534f'}}
-          ></div> */}
-
           <div className="mt-10 max-sm:mt-5 text-center">
             <div className="relative inline-block">
               {/* Background decoration */}

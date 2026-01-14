@@ -2,18 +2,9 @@
 import React, { useEffect, useState } from "react";
 import { Menu, X, Phone, Calendar } from "lucide-react";
 
-const Navbar = () => {
+const Navbars = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-
-  const menuItems = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "#about" },
-    { name: "Services", href: "#services" },
-    { name: "FAQ", href: "#faq" },
-    { name: "Reviews", href: "#reviews" },
-    { name: "Contact", href: "#contact" },
-  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,7 +17,7 @@ const Navbar = () => {
   return (
     <nav className="w-full bg-white shadow-lg sticky top-0 z-50">
       {/* Main Navbar Container */}
-      <div className="container-fluid ml-5 mr-5 px-4 py-3 max-sm:py-0">
+      <div className="container-fluid ml-5 mr-5 px-4 py-3">
         <div className="flex flex-col lg:flex-row justify-between items-center gap-4">
           {/* Left Section - Logo & Brand */}
           <div className="flex items-center justify-between w-full lg:w-auto">
@@ -58,38 +49,11 @@ const Navbar = () => {
 
           {/* Center Section - Navigation Menu (Desktop) */}
           <div className="hidden lg:flex items-center gap-1">
-            {menuItems.map((item, index) => (
-              <a
-                key={index}
-                href={item.href}
-                className="px-5 py-2.5 text-gray-700 font-semibold rounded-lg hover:bg-gradient-to-r transition-all duration-300 relative group"
-                style={{
-                  "--hover-bg":
-                    "linear-gradient(135deg, rgba(217, 83, 79, 0.1) 0%, rgba(19, 92, 142, 0.1) 100%)",
-                } as React.CSSProperties}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background =
-                    "linear-gradient(135deg, rgba(217, 83, 79, 0.1) 0%, rgba(19, 92, 142, 0.1) 100%)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "transparent";
-                }}
-              >
-                {item.name}
-                {/* Underline effect */}
-                <span
-                  className="absolute bottom-0 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300 rounded-full"
-                  style={{
-                    background:
-                      "linear-gradient(90deg, #d9534f 0%, #135c8e 100%)",
-                  }}
-                ></span>
-              </a>
-            ))}
+            {/* Menu items removed - space maintained for alignment */}
           </div>
 
           {/* Right Section - Contact Info */}
-          <div className="hidden lg:flex gap-8">
+          <div className="hidden lg:flex gap-5">
             {/* Customer Support */}
             <div className="flex items-start">
               <div className="mr-3 mt-1">
@@ -150,27 +114,7 @@ const Navbar = () => {
         }`}
       >
         <div className="container mx-auto px-4 py-4 space-y-2 border-t border-gray-200">
-          {menuItems.map((item, index) => (
-            <a
-              key={index}
-              href={item.href}
-              className="block px-4 py-3 text-gray-700 font-semibold rounded-lg hover:bg-gradient-to-r transition-all duration-300"
-              style={{
-                "--hover-bg":
-                  "linear-gradient(135deg, rgba(217, 83, 79, 0.1) 0%, rgba(19, 92, 142, 0.1) 100%)",
-              } as React.CSSProperties}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background =
-                  "linear-gradient(135deg, rgba(217, 83, 79, 0.1) 0%, rgba(19, 92, 142, 0.1) 100%)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "transparent";
-              }}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              {item.name}
-            </a>
-          ))}
+          {/* Mobile menu items removed */}
 
           {/* Mobile Contact Info */}
           <div className="pt-4 space-y-4 border-t border-gray-200 mt-4">
@@ -236,4 +180,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Navbars;

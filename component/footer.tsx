@@ -62,35 +62,35 @@ const Footer = () => {
               <p className="text-sm font-semibold mb-3">Follow Us</p>
               <div className="flex gap-3">
                 <a 
-                  href="#" 
+                  href="https://www.facebook.com/fastest.healthtech" target='parent'
                   className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg"
                   style={{background: 'linear-gradient(135deg, #d9534f 0%, #c9302c 100%)'}}
                 >
                   <Facebook className="w-5 h-5" />
                 </a>
                 <a 
-                  href="#" 
+                  href="https://x.com/fastest_health" target='parent' 
                   className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg"
                   style={{background: 'linear-gradient(135deg, #135c8e 0%, #0a4666 100%)'}}
                 >
                   <Twitter className="w-5 h-5" />
                 </a>
                 <a 
-                  href="#" 
+                  href="https://www.instagram.com/fastest.health/" target='parent'
                   className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg"
                   style={{background: 'linear-gradient(135deg, #d9534f 0%, #c9302c 100%)'}}
                 >
                   <Instagram className="w-5 h-5" />
                 </a>
                 <a 
-                  href="#" 
+                  href="https://www.linkedin.com/company/fastest-healthtech/" target='parent'
                   className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg"
                   style={{background: 'linear-gradient(135deg, #135c8e 0%, #0a4666 100%)'}}
                 >
                   <Linkedin className="w-5 h-5" />
                 </a>
                 <a 
-                  href="#" 
+                  href="https://www.youtube.com/@FastestHealthtech" target='parent'
                   className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg"
                   style={{background: 'linear-gradient(135deg, #d9534f 0%, #c9302c 100%)'}}
                 >
@@ -161,14 +161,14 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-3 text-gray-400 text-sm">
                 <Phone className="w-5 h-5 flex-shrink-0" style={{color: '#d9534f'}} />
-                <a href="tel:+918012345678" className="hover:text-white transition-colors duration-300">
-                  +91 801 234 5678
+                <a href="tel:+91 8108 149 234 " className="hover:text-white transition-colors duration-300">
+                  +91 8108 149 234 
                 </a>
               </li>
               <li className="flex items-center gap-3 text-gray-400 text-sm">
                 <Mail className="w-5 h-5 flex-shrink-0" style={{color: '#135c8e'}} />
-                <a href="mailto:contact@fastesthealthtech.com" className="hover:text-white transition-colors duration-300">
-                  contact@fastesthealthtech.com
+                <a href="mailto:info@fastest.health" className="hover:text-white transition-colors duration-300">
+                  info@fastest.health
                 </a>
               </li>
               <li className="flex items-center gap-3 text-gray-400 text-sm">
@@ -176,25 +176,6 @@ const Footer = () => {
                 <span>24/7 Available</span>
               </li>
             </ul>
-
-            {/* Newsletter */}
-            <div className="mt-6">
-              <p className="text-sm font-semibold mb-3">Subscribe to Newsletter</p>
-              <div className="flex gap-2">
-                <input
-                  type="email"
-                  placeholder="Your email"
-                  className="flex-1 px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white text-sm focus:outline-none focus:border-opacity-100 transition-all duration-300"
-                  style={{borderColor: '#135c8e'}}
-                />
-                <button 
-                  className="px-4 py-2 rounded-lg text-white font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg"
-                  style={{background: 'linear-gradient(135deg, #d9534f 0%, #c9302c 100%)'}}
-                >
-                  <Mail className="w-5 h-5" />
-                </button>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -219,13 +200,6 @@ const Footer = () => {
                 {policy.name}
               </a>
             ))}
-          </div>
-
-          {/* Made with Love */}
-          <div className="flex items-center gap-2 text-gray-400 text-sm">
-            <span>Made with</span>
-            <Heart className="w-4 h-4 animate-pulse" style={{color: '#d9534f'}} fill="#d9534f" />
-            <span>in India</span>
           </div>
         </div>
       </div>

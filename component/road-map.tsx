@@ -170,7 +170,7 @@ function Roadmap() {
             ))}
           </div>
         </div>
-        <div className="mt-10 max-sm:mt-5 text-center">
+        <div className="mt-10 max-sm:mt-8 text-center">
           <div className="relative inline-block">
             {/* Background decoration */}
             <div className="absolute -inset-3 bg-gradient-to-r from-[#d9534f] to-[#e74c3c] rounded-full blur-md opacity-20"></div>

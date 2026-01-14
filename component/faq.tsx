@@ -126,7 +126,7 @@ const FAQComponent = () => {
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4 max-sm:mt-5 mt-12">
           <a  href=' #contact'
-            className="w-full sm:w-auto px-8 py-4 bg-white text-gray-800 rounded-full font-semibold text-base shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
+            className="sm:w-auto px-8 py-4 bg-white text-gray-800 rounded-full font-semibold text-base shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
             style={{color: '#135c8e'}}
           >
             Still have questions? Chat with us
@@ -136,7 +136,7 @@ const FAQComponent = () => {
               {/* Background decoration */}
               <div className="absolute -inset-3 bg-gradient-to-r from-[#d9534f] to-[#e74c3c] rounded-full blur-md opacity-20"></div>
 
-              <a href='#contact' className="relative flex bg-gradient-to-r from-[#d9534f] to-[#e74c3c] text-white px-6 py-3 rounded-full text-base font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 group">
+              <a href='#contact' className="relative flex bg-gradient-to-r from-[#d9534f] to-[#e74c3c] text-white px-6 max-sm:px-5 py-4 rounded-full text-base font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 group">
                 <div className="flex items-center space-x-2">
                   <span> Ready to start? Book your 15-min collection</span>
                   <ArrowBigRight className="group-hover:translate-x-1 transition-transform text-sm" />
