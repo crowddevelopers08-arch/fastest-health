@@ -1,6 +1,6 @@
 'use client'
 import  { useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ArrowBigRight, ChevronDown } from 'lucide-react';
 
 const FAQComponent = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -58,12 +58,12 @@ const FAQComponent = () => {
   };
 
   return (
-    <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8" style={{background: 'linear-gradient(135deg, #135c8e 0%, #0a4666 100%)'}}>
+    <div id='faq' className="min-h-screen max-sm:py-5 py-12 px-4 sm:px-6 lg:px-8" style={{background: 'linear-gradient(135deg, #135c8e 0%, #0a4666 100%)'}}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <h1 className="text-4xl md:text-5xl font-bold text-white text-center mb-12 drop-shadow-lg">
+        <h1 className="text-2xl md:text-4xl font-bold text-white text-center max-sm:mb-6 mb-12 drop-shadow-lg">
           Frequently Asked Questions
-          <div className="flex items-center justify-center mt-6 space-x-3">
+          <div className="flex items-center justify-center max-sm:mt-3 mt-6 space-x-3">
             <div className="w-16 h-0.5 bg-gradient-to-r from-[#d9534f] to-[#e74c3c] rounded-full"></div>
             <div className="w-2 h-2 bg-[#d9534f] rounded-full animate-pulse"></div>
             <div className="w-16 h-0.5 bg-gradient-to-r from-[#e74c3c] to-[#d9534f] rounded-full"></div>
@@ -72,7 +72,7 @@ const FAQComponent = () => {
         
 
         {/* FAQ Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-sm:gap-3 max-sm:mb-5 mb-12">
           {faqs.map((faq) => (
             <div
               key={faq.id}
@@ -124,20 +124,33 @@ const FAQComponent = () => {
         </div>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-12">
-          <button 
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 max-sm:mt-5 mt-12">
+          <a  href=' #contact'
             className="w-full sm:w-auto px-8 py-4 bg-white text-gray-800 rounded-full font-semibold text-base shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
             style={{color: '#135c8e'}}
           >
             Still have questions? Chat with us
-          </button>
-          <button 
-            className="w-full sm:w-auto px-8 py-4 text-white rounded-full font-semibold text-base shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
-            style={{background: 'linear-gradient(135deg, #d9534f 0%, #c9302c 100%)'}}
-          >
-            Ready to start? Book your 15-min collection
-          </button>
+          </a>
+                  <div className=" text-center">
+            <div className="relative inline-block">
+              {/* Background decoration */}
+              <div className="absolute -inset-3 bg-gradient-to-r from-[#d9534f] to-[#e74c3c] rounded-full blur-md opacity-20"></div>
+
+              <a href='#contact' className="relative flex bg-gradient-to-r from-[#d9534f] to-[#e74c3c] text-white px-6 py-3 rounded-full text-base font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 group">
+                <div className="flex items-center space-x-2">
+                  <span> Ready to start? Book your 15-min collection</span>
+                  <ArrowBigRight className="group-hover:translate-x-1 transition-transform text-sm" />
+                </div>
+
+                {/* Ripple effect */}
+                <div className="absolute inset-0 rounded-full overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                </div>
+              </a>
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
   );

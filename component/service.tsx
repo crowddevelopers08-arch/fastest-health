@@ -137,17 +137,13 @@ const ServicesSection = () => {
   const initialServices = services.slice(0, 8);
   const displayServices = showAll ? services : initialServices;
 
-  const handleBookNow = () => {
-    alert("Test booking functionality would be implemented here!");
-  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8 px-4 sm:px-6 lg:px-8">
+    <div id='services' className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-10 px-4 sm:px-6 lg:px-8 max-sm:py-5">
       <div className="max-w-7xl mx-auto">
-        
         {/* Header Section */}
-        <div className="text-center mb-6">
-          <div className="relative inline-">
+        <div className="text-center max-sm:mb-3 mb-6">
+          <div className="relative inline-block">
             <h1 className="text-2xl md:text-4xl font-bold text-gray-900">
               Our <span className="bg-gradient-to-r bg-clip-text text-transparent inline-block transform hover:scale-105 transition-transform duration-300"
               style={{
@@ -156,11 +152,11 @@ const ServicesSection = () => {
             </h1>
           </div>
           
-          <p className="text-base md:text-md text-gray-600 max-w-2xl mx-auto mt-4 lg:mt-2">
+          <p className="text-base md:text-md text-gray-600 max-w-2xl mx-auto mt-4 max-sm:mt-2 lg:mt-2">
             Expert Lab Tests Without the Waiting Room 
           </p>
           
-          <div className="flex items-center justify-center mt-6 md:mt-3 space-x-3">
+          <div className="flex items-center justify-center mt-6 max-sm:mt-3 md:mt-3 space-x-3">
             <div className="w-16 h-0.5 bg-gradient-to-r from-[#d9534f] to-[#e74c3c] rounded-full"></div>
             <div className="w-2 h-2 bg-[#d9534f] rounded-full animate-pulse"></div>
             <div className="w-16 h-0.5 bg-gradient-to-r from-[#e74c3c] to-[#d9534f] rounded-full"></div>
@@ -168,7 +164,7 @@ const ServicesSection = () => {
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 max-sm:mb-6 mb-8">
           {displayServices.map((service) => (
             <div
               key={service.id}
@@ -206,14 +202,7 @@ const ServicesSection = () => {
                     <p className="text-white/90 text-xs truncate">{service.subtitle}</p>
                   </div>
                 </div>
-                
-                {/* Badge */}
-                {service.badge && (
-                  <div className={`absolute top-2 right-2 ${service.badge.color} text-white px-2 py-1 rounded-full text-xs font-semibold flex items-center space-x-1 shadow-sm`}>
-                    {service.badge.icon}
-                    <span className="hidden sm:inline">{service.badge.text}</span>
-                  </div>
-                )}
+
               </div>
               
               {/* Card Body */}
@@ -244,7 +233,7 @@ const ServicesSection = () => {
 
         {/* Read More/Less Button */}
         {services.length > initialServices.length && (
-          <div className="text-center mb-8">
+          <div className="text-center max-sm:mb-4 mb-8">
             <button
               onClick={() => setShowAll(!showAll)}
               className="inline-flex items-center justify-center space-x-2 px-6 py-3 bg-gradient-to-r from-[#d9534f] to-[#e74c3c] text-white rounded-full hover:opacity-90 transition-all duration-300 shadow-md hover:shadow-lg"
@@ -266,10 +255,9 @@ const ServicesSection = () => {
           <div className="relative inline-block">
             {/* Background decoration */}
             <div className="absolute -inset-3 bg-gradient-to-r from-[#d9534f] to-[#e74c3c] rounded-full blur-md opacity-20"></div>
-            
-            <button
-              onClick={handleBookNow}
-              className="relative bg-gradient-to-r from-[#d9534f] to-[#e74c3c] text-white px-6 py-3 rounded-full text-base font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 group"
+
+            <a href='#contact'
+              className="relative flex bg-gradient-to-r from-[#d9534f] to-[#e74c3c] text-white px-6 py-3 rounded-full text-base font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 group"
             >
               <div className="flex items-center space-x-2">
                 <span>Find Your Test & Book Now</span>
@@ -280,7 +268,7 @@ const ServicesSection = () => {
               <div className="absolute inset-0 rounded-full overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
               </div>
-            </button>
+            </a>
           </div>
         </div>
       </div>

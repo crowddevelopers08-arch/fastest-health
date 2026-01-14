@@ -97,7 +97,7 @@ const GoogleReviewsSection = () => {
   const visibleCards = getVisibleCards();
 
   return (
-    <div className="min-h-screen py-9 px-4 sm:px-6 lg:px-8 relative overflow-hidden" style={{
+    <div id='reviews' className="min-h-screen py-9 max-sm:py-5 px-4 sm:px-6 lg:px-8 relative overflow-hidden" style={{
       background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)'
     }}>
       {/* Decorative Background */}
@@ -108,19 +108,19 @@ const GoogleReviewsSection = () => {
 
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
-        <div className="text-center mb-16 lg:mb-14">
+        <div className="text-center mb-16 max-sm:mb-4 lg:mb-14">
           {/* Google Logo Badge */}
-          <div className="inline-flex items-center gap-2 mb-4 lg:mb-1">
+          {/* <div className="inline-flex items-center gap-2 mb-4 lg:mb-1">
             <div className="flex gap-0.5">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="w-6 h-6 fill-yellow-400 text-yellow-400" />
               ))}
             </div>
             <span className="text-2xl font-bold text-gray-700">4.9/5.0</span>
-          </div>
+          </div> */}
 
           {/* Main Headline */}
-          <h2 className="text-2xl sm:text-4xl md:text-4xl font-extrabold mb-6 md:mb-2 leading-tight">
+          <h2 className="text-2xl sm:text-4xl md:text-4xl font-extrabold max-sm:mb-3 mb-6 md:mb-2 leading-tight">
             <span className="bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
               Read Patient Stories & Experiences
             </span>
@@ -133,7 +133,7 @@ const GoogleReviewsSection = () => {
             >
               at Fastest Health Tech
             </span>
-            <div className="flex items-center justify-center mt-6 lg:mt-3 space-x-3">
+            <div className="flex items-center justify-center max-sm:mt-3 mt-6 lg:mt-3 space-x-3">
             <div className="w-16 h-0.5 bg-gradient-to-r from-[#d9534f] to-[#e74c3c] rounded-full"></div>
             <div className="w-2 h-2 bg-[#d9534f] rounded-full animate-pulse"></div>
             <div className="w-16 h-0.5 bg-gradient-to-r from-[#e74c3c] to-[#d9534f] rounded-full"></div>
@@ -148,7 +148,7 @@ const GoogleReviewsSection = () => {
         </div>
 
         {/* Reviews Carousel */}
-        <div className="relative mb-16 px-4 sm:px-12 lg:px-16">
+        <div className="relative mb-16 max-sm:mb-6 px-4 sm:px-12 lg:px-16">
           {/* Desktop: 3 Cards */}
           <div className="hidden lg:flex items-stretch justify-center gap-6 min-h-[400px]">
             {visibleCards.map(({ index, position }) => {
@@ -179,14 +179,14 @@ const GoogleReviewsSection = () => {
           {/* Navigation Arrows */}
           <button
             onClick={goToPrev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 bg-white p-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 border-2 z-30 hover:scale-110"
+            className="absolute left-0 left-[-13] top-1/2 -translate-y-1/2 bg-white p-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 border-2 z-30 hover:scale-110"
             style={{borderColor: '#135c8e'}}
           >
             <ChevronLeft className="w-6 h-6" style={{color: '#135c8e'}} />
           </button>
           <button
             onClick={goToNext}
-            className="absolute right-0 top-1/2 -translate-y-1/2 bg-white p-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 border-2 z-30 hover:scale-110"
+            className="absolute right-0 right-[-13] top-1/2 -translate-y-1/2 bg-white p-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 border-2 z-30 hover:scale-110"
             style={{borderColor: '#d9534f'}}
           >
             <ChevronRight className="w-6 h-6" style={{color: '#d9534f'}} />
@@ -194,7 +194,7 @@ const GoogleReviewsSection = () => {
         </div>
 
         {/* Dots Indicator */}
-        <div className="flex justify-center gap-2 mb-12">
+        <div className="flex justify-center gap-2 max-sm:mb-6 mb-12">
           {reviews.map((_, index) => (
             <button
               key={index}
@@ -215,22 +215,29 @@ const GoogleReviewsSection = () => {
 
         {/* CTA Section */}
         <div className="text-center">
-          <button 
-            className="group relative px-9 py-3 text-white rounded-full font-bold text-md shadow-2xl transform hover:-translate-y-3 transition-all duration-500 overflow-hidden"
-            style={{background: 'linear-gradient(135deg, #d9534f 0%, #c9302c 100%)'}}
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20 transition-opacity duration-700 transform -skew-x-12 group-hover:translate-x-full"></div>
-            
-            <span className="relative z-10 flex items-center justify-center gap-3">
-              Consult Our Experts for Your Reports
-              <svg className="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          
+                  <div className=" text-center">
+            <div className="relative inline-block">
+              {/* Background decoration */}
+              <div className="absolute -inset-3 bg-gradient-to-r from-[#d9534f] to-[#e74c3c] rounded-full blur-md opacity-20"></div>
+
+              <a href='#contact' className="flex relative bg-gradient-to-r from-[#d9534f] to-[#e74c3c] text-white px-6 py-3 rounded-full text-base font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 group">
+                <div className="flex items-center space-x-2">
+                  <span className='flex gap-3'> Consult Our Experts for Your Reports <svg className="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </span>
-          </button>
+              </svg></span>
+                </div>
+
+                {/* Ripple effect */}
+                <div className="absolute inset-0 rounded-full overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                </div>
+              </a>
+            </div>
+          </div>
 
           {/* Trust Stats */}
-          <div className="flex flex-wrap justify-center gap-8 mt-10">
+          <div className="flex flex-wrap justify-center gap-8 max-sm:mt-4 mt-10">
             <div className="text-center">
               <div className="text-lg font-bold" style={{color: '#d9534f'}}>10,000+</div>
               <div className="text-sm text-gray-600 font-semibold">Happy Patients</div>

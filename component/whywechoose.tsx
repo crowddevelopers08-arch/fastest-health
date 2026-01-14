@@ -61,7 +61,7 @@ const WhyChooseSection = () => {
     setIsAutoPlaying(false);
   };
 
-  const goToSlide = (index : number) => {
+  const goToSlide = (index: number) => {
     setCurrentIndex(index);
     setIsAutoPlaying(false);
   };
@@ -76,7 +76,7 @@ const WhyChooseSection = () => {
   const visibleCards = getVisibleCards();
 
   return (
-    <div className="min-h-screen py-10 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="min-h-screen py-10 max-sm:py-5 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Background with Gradient */}
       <div
         className="absolute inset-0 -z-10"
@@ -92,11 +92,11 @@ const WhyChooseSection = () => {
 
       <div className="max-w-7xl mx-auto relative">
         {/* Header Section */}
-        <div className="text-center mb-16 lg:mb-10">
+        <div className="text-center mb-16 max-sm:mb-6 lg:mb-10">
           <h2 className="text-2xl md:text-4xl lg:text-4xl font-bold text-white mb-2 drop-shadow-lg">
             Why Choose Fastest Health Tech
           </h2>
-          <div className="flex items-center justify-center mt-6 lg:mt-4 space-x-3">
+          <div className="flex items-center justify-center mt-6 max-sm:mt-3 lg:mt-4 space-x-3">
             <div className="w-16 h-0.5 bg-gradient-to-r from-[#d9534f] to-[#e74c3c] rounded-full"></div>
             <div className="w-2 h-2 bg-[#d9534f] rounded-full animate-pulse"></div>
             <div className="w-16 h-0.5 bg-gradient-to-r from-[#e74c3c] to-[#d9534f] rounded-full"></div>
@@ -104,7 +104,7 @@ const WhyChooseSection = () => {
         </div>
 
         {/* Carousel Container */}
-        <div className="relative mb-16">
+        <div className="relative max-sm:mb-5 mb-16">
           {/* Desktop: 3 Cards View */}
           <div className="hidden lg:flex items-center justify-center gap-6 px-16">
             {[visibleCards.prev, visibleCards.current, visibleCards.next].map(
@@ -207,18 +207,18 @@ const WhyChooseSection = () => {
             onClick={goToPrev}
             className="absolute left-0 top-1/2 -translate-y-1/2 bg-white bg-opacity-20 backdrop-blur-lg p-3 rounded-full hover:bg-opacity-30 transition-all duration-300 border border-white border-opacity-30 z-30"
           >
-            <ChevronLeft className="w-6 h-6 text-white" />
+            <ChevronLeft className="w-6 h-6 text-black" />
           </button>
           <button
             onClick={goToNext}
             className="absolute right-0 top-1/2 -translate-y-1/2 bg-white bg-opacity-20 backdrop-blur-lg p-3 rounded-full hover:bg-opacity-30 transition-all duration-300 border border-white border-opacity-30 z-30"
           >
-            <ChevronRight className="w-6 h-6 text-white" />
+            <ChevronRight className="w-6 h-6 text-black" />
           </button>
         </div>
 
         {/* Dots Indicator */}
-        <div className="flex justify-center gap-2 mb-12">
+        <div className="flex justify-center gap-2 max-sm:mb-6 mb-12">
           {features.map((_, index) => (
             <button
               key={index}
@@ -235,23 +235,30 @@ const WhyChooseSection = () => {
         </div>
 
         {/* CTA Section */}
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-6 mt-12">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-6 max-sm:gap-3 max-sm:mt-2 mt-12">
           {/* Primary CTA */}
-          <button
-            className="group relative w-full sm:w-auto px-9 py-3 text-white rounded-full font-bold text-lg shadow-2xl hover:shadow-red-500/50 transform hover:-translate-y-2 transition-all duration-300 overflow-hidden"
-            style={{
-              background: "linear-gradient(135deg, #d9534f 0%, #c9302c 100%)",
-            }}
-          >
-            <span className="relative z-10 flex items-center justify-center gap-2">
-              Skip the Lab Queue – Book Now
-              <Zap className="w-5 h-5 group-hover:animate-pulse" />
-            </span>
-            <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-          </button>
+
+          <div className=" text-center">
+            <div className="relative inline-block">
+              {/* Background decoration */}
+              <div className="absolute -inset-3 bg-gradient-to-r from-[#d9534f] to-[#e74c3c] rounded-full blur-md opacity-20"></div>
+
+              <a href="#contact" className="relative flex bg-gradient-to-r from-[#d9534f] to-[#e74c3c] text-white px-6 py-3 rounded-full text-base font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 group">
+                <div className="flex items-center space-x-2">
+                  <span> Skip the Lab Queue – Book Now</span>
+                  <Zap className="group-hover:translate-x-1 transition-transform text-sm" />
+                </div>
+
+                {/* Ripple effect */}
+                <div className="absolute inset-0 rounded-full overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                </div>
+              </a>
+            </div>
+          </div>
 
           {/* Secondary CTA */}
-          <button className="group w-full sm:w-auto px-9 py-3 bg-white bg-opacity-10 backdrop-blur-lg text-black rounded-full font-bold text-lg border-2 border-white border-opacity-30 hover:bg-opacity-20 hover:border-opacity-50 shadow-xl transform hover:-translate-y-2 transition-all duration-300">
+          <a href="#contact" className="group flex w-full sm:w-auto px-9 py-3 bg-white bg-opacity-10 backdrop-blur-lg text-black rounded-full font-bold text-md border-2 border-white border-opacity-30 hover:bg-opacity-20 hover:border-opacity-50 shadow-xl transform hover:-translate-y-2 transition-all duration-300">
             <span className="flex items-center justify-center gap-2">
               Learn More About Us
               <svg
@@ -268,11 +275,11 @@ const WhyChooseSection = () => {
                 />
               </svg>
             </span>
-          </button>
+          </a>
         </div>
 
         {/* Trust Badge */}
-        <div className="text-center mt-12">
+        <div className="text-center max-sm:mt-4 mt-12">
           <div className="inline-flex items-center gap-3 bg-white bg-opacity-10 backdrop-blur-lg px-6 py-3 rounded-full border border-white border-opacity-20">
             <ShieldCheck className="w-6 h-6 text-white" />
             <span className="text-black font-semibold text-sm">

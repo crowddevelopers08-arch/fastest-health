@@ -1,6 +1,7 @@
 import ContactSection from "@/component/contact";
 import FAQComponent from "@/component/faq";
 import FastestNameSection from "@/component/fastest-name";
+import Footer from "@/component/footer";
 import GoogleReviewsSection from "@/component/google-reviews";
 import Navbar from "@/component/navbar";
 import RoadmapComponent from "@/component/road-map";
@@ -19,6 +20,7 @@ export default function Home() {
       <FAQComponent />
       <GoogleReviewsSection />
       <ContactSection />
+      <Footer />
     </>
   );
 }
