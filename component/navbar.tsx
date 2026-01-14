@@ -55,18 +55,18 @@ const Navbar = () => {
                     </h3>
                     <div className="flex flex-wrap items-center gap-2">
                       <a 
-                        href="tel:18005720005" 
+                        href="tel:+91 8108 149 234  " 
                         className="text-lg font-bold text-gray-800 hover:text-[#135c8e] transition-colors"
                       >
-                        1800-572-0005
+                        +91 8108 149 234  
                       </a>
-                      <span className="text-gray-400">/</span>
+                      {/* <span className="text-gray-400">/</span>
                       <a 
                         href="tel:9998880005" 
                         className="text-lg font-bold text-gray-800 hover:text-[#135c8e] transition-colors"
                       >
                         999-888-000-5
-                      </a>
+                      </a> */}
                     </div>
                   </div>
                 </div>
