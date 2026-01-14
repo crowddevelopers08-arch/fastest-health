@@ -3,7 +3,7 @@ import  { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 
 const FAQComponent = () => {
-  const [openFaq, setOpenFaq] = useState(null);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const faqs = [
     {
@@ -53,9 +53,9 @@ const FAQComponent = () => {
     }
   ];
 
-//   const toggleFaq = (id) => {
-//     setOpenFaq(openFaq === id ? null : id);
-//   };
+  const toggleFaq = (id: number) => {
+  setOpenFaq((prev) => (prev === id ? null : id));
+  };
 
   return (
     <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8" style={{background: 'linear-gradient(135deg, #135c8e 0%, #0a4666 100%)'}}>
