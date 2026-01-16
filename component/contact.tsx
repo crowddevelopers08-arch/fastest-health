@@ -78,7 +78,6 @@ const ContactSection = () => {
             <div className="relative bg-white rounded-3xl overflow-hidden shadow-xl border-2 border-gray-100 h-[530px] max-sm:h-[510px]">
             {/* Image Carousel */}
             <div className="relative w-full h-full">
-              {/* Image 1 */}
               <img
                 src="/Studio-Session.JPG"
                 alt="Image 1 description"
