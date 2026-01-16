@@ -170,7 +170,7 @@ const ServicesSection = () => {
   }, [currentIndex, isMobile]);
 
   return (
-    <div id='services' className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-10 px-4 sm:px-6 lg:px-8 max-sm:py-5">
+    <div id='services' className="bg-gradient-to-br from-gray-50 to-gray-100 py-10 px-4 sm:px-6 lg:px-8 max-sm:py-5">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="text-center max-sm:mb-3 mb-6">
