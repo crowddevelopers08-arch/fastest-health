@@ -16,7 +16,8 @@ const ContactSection = () => {
     name: "",
     email: "",
     phone: "",
-    date: "",
+    pincode: "",
+    test: "",
     message: "",
   });
 
@@ -74,17 +75,16 @@ const ContactSection = () => {
           {/* Left Side - Map & Info */}
           <div className="space-y-6">
             {/* Map Container */}
-            <div className="relative bg-white rounded-3xl overflow-hidden shadow-xl border-2 border-gray-100 h-[530px]">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125329.14524165288!2d78.59426882734376!3d10.790215100000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baaf50d40040591%3A0x2fe2c0f533a92dce!2sTiruchirappalli%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen={true}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Fastest Health Tech Location"
-              ></iframe>
+            <div className="relative bg-white rounded-3xl overflow-hidden shadow-xl border-2 border-gray-100 h-[530px] max-sm:h-[510px]">
+            {/* Image Carousel */}
+            <div className="relative w-full h-full">
+              {/* Image 1 */}
+              <img
+                src="/Studio-Session.JPG"
+                alt="Image 1 description"
+                className="absolute inset-0 w-full object-cover transition-opacity duration-500 opacity-100"
+              />
+              </div>
             </div>
 
             {/* Contact Info Cards */}
@@ -100,8 +100,12 @@ const ContactSection = () => {
                 >
                   <Phone className="w-6 h-6 text-white" />
                 </div>
-                <h4 className="font-bold text-gray-900 max-sm:mb-0 mb-2">Call Us</h4>
-                <p className="text-sm text-gray-600 max-sm:mb-0 mb-1">Available 24/7</p>
+                <h4 className="font-bold text-gray-900 max-sm:mb-0 mb-2">
+                  Call Us
+                </h4>
+                <p className="text-sm text-gray-600 max-sm:mb-0 mb-1">
+                  Available 24/7
+                </p>
                 <a
                   href="tel:+91 8108 149 234  "
                   className="text-sm font-semibold hover:underline"
@@ -122,8 +126,12 @@ const ContactSection = () => {
                 >
                   <Mail className="w-6 h-6 text-white" />
                 </div>
-                <h4 className="font-bold text-gray-900 max-sm:mb-0 mb-2">Email Us</h4>
-                <p className="text-sm text-gray-600 max-sm:mb-0 mb-1">Quick response</p>
+                <h4 className="font-bold text-gray-900 max-sm:mb-0 mb-2">
+                  Email Us
+                </h4>
+                <p className="text-sm text-gray-600 max-sm:mb-0 mb-1">
+                  Quick response
+                </p>
                 <a
                   href="mailto:info@fastest.health"
                   className="text-sm font-semibold hover:underline"
@@ -165,7 +173,10 @@ const ContactSection = () => {
           </div>
 
           {/* Right Side - Contact Form */}
-          <div id="contact" className="bg-white rounded-3xl p-8 lg:p-10 shadow-xl border-2 border-gray-100">
+          <div
+            id="contact"
+            className="bg-white rounded-3xl p-8 lg:p-10 shadow-xl border-2 border-gray-100"
+          >
             <div className="mb-8 max-sm:mb-3 lg:mb-2 flex flex-col text-center">
               <h3 className="text-3xl font-bold text-gray-900 max-sm:mb-0 mb-2">
                 Schedule Your Visit
@@ -243,21 +254,104 @@ const ContactSection = () => {
               </div>
 
               {/* Preferred Date */}
-              <div className="relative max-sm:mb-2">
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Preferred Date & Time
-                </label>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-sm:gap-4">
+                {/* Pincode Field */}
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <Calendar className="w-5 h-5 text-gray-400" />
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Pincode
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                      <svg
+                        className="w-5 h-5 text-gray-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                      </svg>
+                    </div>
+                    <input
+                      type="text"
+                      name="pincode"
+                      placeholder="Enter your pincode"
+                      value={formData.pincode || ""}
+                      onChange={handleChange}
+                      maxLength={6}
+                      pattern="[0-9]{6}"
+                      className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 transition-all duration-300 text-gray-900"
+                    />
                   </div>
-                  <input
-                    type="datetime-local"
-                    name="date"
-                    value={formData.date}
-                    onChange={handleChange}
-                    className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:outline-none transition-all duration-300 text-gray-900"
-                  />
+                </div>
+
+                <div className="relative">
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Test
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                      <svg
+                        className="w-5 h-5 text-gray-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
+                        />
+                      </svg>
+                    </div>
+                    <input
+                      type="text"
+                      name="test"
+                      list="testSuggestions"
+                      placeholder="eg: Blood test, PCOS panel, etc."
+                      value={formData.test || ""}
+                      onChange={handleChange}
+                      className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 transition-all duration-300 text-gray-900"
+                    />
+
+                    {/* Datalist for suggestions */}
+                    <datalist id="testSuggestions">
+                      <option value="Complete Blood Count (CBC)">
+                        Complete Blood Count (CBC)
+                      </option>
+                      <option value="Lipid Profile">Lipid Profile</option>
+                      <option value="Liver Function Test">
+                        Liver Function Test
+                      </option>
+                      <option value="Kidney Function Test">
+                        Kidney Function Test
+                      </option>
+                      <option value="Thyroid Panel">Thyroid Panel</option>
+                      <option value="Diabetes Panel">Diabetes Panel</option>
+                      <option value="PCOS Panel">PCOS Panel</option>
+                      <option value="Vitamin D Test">Vitamin D Test</option>
+                      <option value="Vitamin B12 Test">Vitamin B12 Test</option>
+                      <option value="Iron Studies">Iron Studies</option>
+                      <option value="Allergy Test">Allergy Test</option>
+                      <option value="COVID-19 RT-PCR">COVID-19 RT-PCR</option>
+                      <option value="Urine Routine Test">
+                        Urine Routine Test
+                      </option>
+                      <option value="HbA1c Test">HbA1c Test</option>
+                      <option value="HIV Test">HIV Test</option>
+                    </datalist>
+                  </div>
                 </div>
               </div>
 

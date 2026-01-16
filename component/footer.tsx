@@ -14,12 +14,12 @@ const Footer = () => {
   ];
 
   const services = [
-    { name: 'Blood Tests', href: '#' },
-    { name: 'Full Body Checkup', href: '#' },
-    { name: 'Diabetes Screening', href: '#' },
-    { name: 'Thyroid Profile', href: '#' },
-    { name: 'Vitamin Tests', href: '#' },
-    { name: 'COVID-19 Tests', href: '#' }
+    { name: 'Diabetes Management', href: '#services' },
+    { name: 'Thyroid Care', href: '#services' },
+    { name: 'Hypertension & Heart', href: '#services' },
+    { name: 'Infection Screening', href: '#services' },
+    { name: 'Rapid Fever', href: '#services' },
+    { name: 'Anemia Detection', href: '#services' }
   ];
 
   const policies = [
@@ -155,10 +155,6 @@ const Footer = () => {
               Get In Touch
             </h4>
             <ul className="space-y-4">
-              <li className="flex items-start gap-3 text-gray-400 text-sm">
-                <MapPin className="w-5 h-5 flex-shrink-0 mt-0.5" style={{color: '#135c8e'}} />
-                <span>123 Health Street, Tiruchirappalli, Tamil Nadu - 620001</span>
-              </li>
               <li className="flex items-center gap-3 text-gray-400 text-sm">
                 <Phone className="w-5 h-5 flex-shrink-0" style={{color: '#d9534f'}} />
                 <a href="tel:+91 8108 149 234 " className="hover:text-white transition-colors duration-300">

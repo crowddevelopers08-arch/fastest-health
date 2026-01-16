@@ -76,7 +76,7 @@ const WhyChooseSection = () => {
   const visibleCards = getVisibleCards();
 
   return (
-    <div className="min-h-screen py-10 max-sm:py-5 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="py-10 max-sm:py-5 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Background with Gradient */}
       <div
         className="absolute inset-0 -z-10"

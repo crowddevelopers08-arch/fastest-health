@@ -1,17 +1,28 @@
-// ServicesSection.jsx
 'use client'
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   FaHeartbeat, FaSyringe, FaStethoscope, FaHeart, 
   FaVirus, FaThermometerFull, FaLungs, FaPills, 
   FaTint, FaBalanceScale, FaArrowRight,
   FaStar, FaBolt, FaClock, FaFlask, FaCheckCircle,
-  FaChevronDown, FaChevronUp
+  FaChevronDown, FaChevronUp, FaChevronLeft, FaChevronRight
 } from 'react-icons/fa';
 
 const ServicesSection = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [showAll, setShowAll] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  const carouselRef = useRef(null);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const services = [
     {
@@ -133,10 +144,30 @@ const ServicesSection = () => {
     }
   ];
 
-  // Show only first 8 cards initially (2 rows of 4 on desktop)
   const initialServices = services.slice(0, 8);
   const displayServices = showAll ? services : initialServices;
 
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev + 1) % services.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev - 1 + services.length) % services.length);
+  };
+
+  const goToSlide = (index :number) => {
+    setCurrentIndex(index);
+  };
+
+  useEffect(() => {
+    if (!isMobile) return;
+    
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [currentIndex, isMobile]);
 
   return (
     <div id='services' className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-10 px-4 sm:px-6 lg:px-8 max-sm:py-5">
@@ -163,77 +194,178 @@ const ServicesSection = () => {
           </div>
         </div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 max-sm:mb-6 mb-8">
-          {displayServices.map((service) => (
-            <div
-              key={service.id}
-              className={`bg-white rounded-xl shadow-md transition-all duration-300 transform hover:-translate-y-1 ${
-                hoveredCard === service.id ? 'shadow-lg shadow-red-200' : ''
-              }`}
-              onMouseEnter={() => setHoveredCard(service.id)}
-              onMouseLeave={() => setHoveredCard(null)}
-              style={{
-                borderLeft: `4px solid ${hoveredCard === service.id ? '#135c8e' : '#135c8e'}`,
-              }}
-            >
-              {/* Card Header */}
+        {/* Services Grid - Desktop / Carousel - Mobile */}
+        {isMobile ? (
+          /* Mobile Carousel */
+          <div className="relative mb-6">
+            <div className="overflow-hidden" ref={carouselRef}>
               <div 
-                className="relative p-4 rounded-t-xl overflow-hidden"
-                style={{
-                  background: 'linear-gradient(135deg, #d9534f 0%, #e74c3c 100%)'
-                }}
+                className="flex transition-transform duration-500 ease-out"
+                style={{ transform: `translateX(-${currentIndex * 100}%)` }}
               >
-                <div className="absolute top-0 left-0 w-full h-full opacity-5">
-                  <div className="absolute -top-3 -right-3 w-16 h-16 bg-white rounded-full"></div>
-                </div>
-                
-                <div className="relative flex items-center space-x-3">
-                  {/* Service Icon */}
-                  <div className="flex-shrink-0 w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
-                    <div className="text-white text-xl">
-                      {service.icon}
-                    </div>
-                  </div>
-                  
-                  {/* Service Title */}
-                  <div className="flex-grow min-w-0">
-                    <h3 className="text-lg font-bold text-white truncate">{service.title}</h3>
-                    <p className="text-white/90 text-xs truncate">{service.subtitle}</p>
-                  </div>
-                </div>
-
-              </div>
-              
-              {/* Card Body */}
-              <div className="p-4">
-                <ul className="space-y-2">
-                  {service.tests.map((test, index) => (
-                    <li key={index} className="flex items-start space-x-2">
-                      <div className="flex-shrink-0 mt-0.5">
-                        <div className="w-5 h-5 rounded-full bg-red-50 flex items-center justify-center">
-                          <FaCheckCircle className="text-[#e74c3c] text-xs" />
+                {services.map((service) => (
+                  <div key={service.id} className="w-full flex-shrink-0 px-2">
+                    <div
+                      className="bg-white rounded-xl shadow-md"
+                      style={{
+                        borderLeft: '4px solid #135c8e',
+                      }}
+                    >
+                      {/* Card Header */}
+                      <div 
+                        className="relative p-4 rounded-t-xl overflow-hidden"
+                        style={{
+                          background: 'linear-gradient(135deg, #d9534f 0%, #e74c3c 100%)'
+                        }}
+                      >
+                        <div className="absolute top-0 left-0 w-full h-full opacity-5">
+                          <div className="absolute -top-3 -right-3 w-16 h-16 bg-white rounded-full"></div>
+                        </div>
+                        
+                        <div className="relative flex items-center space-x-3">
+                          <div className="flex-shrink-0 w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                            <div className="text-white text-xl">
+                              {service.icon}
+                            </div>
+                          </div>
+                          
+                          <div className="flex-grow min-w-0">
+                            <h3 className="text-lg font-bold text-white truncate">{service.title}</h3>
+                            <p className="text-white/90 text-xs truncate">{service.subtitle}</p>
+                          </div>
                         </div>
                       </div>
-                      <div className="min-w-0">
-                        <span className="font-medium text-gray-800 text-sm">
-                          {test.name}
-                        </span>
-                        {test.desc && (
-                          <p className="text-gray-600 text-xs mt-0.5">{test.desc}</p>
-                        )}
+                      
+                      {/* Card Body */}
+                      <div className="p-4">
+                        <ul className="space-y-2">
+                          {service.tests.map((test, index) => (
+                            <li key={index} className="flex items-start space-x-2">
+                              <div className="flex-shrink-0 mt-0.5">
+                                <div className="w-5 h-5 rounded-full bg-red-50 flex items-center justify-center">
+                                  <FaCheckCircle className="text-[#e74c3c] text-xs" />
+                                </div>
+                              </div>
+                              <div className="min-w-0">
+                                <span className="font-medium text-gray-800 text-sm">
+                                  {test.name}
+                                </span>
+                                {test.desc && (
+                                  <p className="text-gray-600 text-xs mt-0.5">{test.desc}</p>
+                                )}
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
-                    </li>
-                  ))}
-                </ul>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-          ))}
-        </div>
 
-        {/* Read More/Less Button */}
-        {services.length > initialServices.length && (
-          <div className="text-center max-sm:mb-4 mb-8">
+            {/* Navigation Arrows */}
+            <button
+              onClick={prevSlide}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 bg-white/90 text-gray-800 p-2 rounded-full shadow-lg hover:bg-white transition-all z-10"
+              aria-label="Previous service"
+            >
+              <FaChevronLeft className="text-lg" />
+            </button>
+            <button
+              onClick={nextSlide}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 bg-white/90 text-gray-800 p-2 rounded-full shadow-lg hover:bg-white transition-all z-10"
+              aria-label="Next service"
+            >
+              <FaChevronRight className="text-lg" />
+            </button>
+
+            {/* Dot Indicators */}
+            <div className="flex justify-center mt-4 space-x-2">
+              {services.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  className={`transition-all duration-300 rounded-full ${
+                    index === currentIndex
+                      ? 'w-8 h-2 bg-gradient-to-r from-[#d9534f] to-[#e74c3c]'
+                      : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
+                  }`}
+                  aria-label={`Go to service ${index + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+        ) : (
+          /* Desktop Grid */
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-8">
+            {displayServices.map((service) => (
+              <div
+                key={service.id}
+                className={`bg-white rounded-xl shadow-md transition-all duration-300 transform hover:-translate-y-1 ${
+                  hoveredCard === service.id ? 'shadow-lg shadow-red-200' : ''
+                }`}
+                onMouseEnter={() => setHoveredCard(service.id)}
+                onMouseLeave={() => setHoveredCard(null)}
+                style={{
+                  borderLeft: `4px solid #135c8e`,
+                }}
+              >
+                {/* Card Header */}
+                <div 
+                  className="relative p-4 rounded-t-xl overflow-hidden"
+                  style={{
+                    background: 'linear-gradient(135deg, #d9534f 0%, #e74c3c 100%)'
+                  }}
+                >
+                  <div className="absolute top-0 left-0 w-full h-full opacity-5">
+                    <div className="absolute -top-3 -right-3 w-16 h-16 bg-white rounded-full"></div>
+                  </div>
+                  
+                  <div className="relative flex items-center space-x-3">
+                    <div className="flex-shrink-0 w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                      <div className="text-white text-xl">
+                        {service.icon}
+                      </div>
+                    </div>
+                    
+                    <div className="flex-grow min-w-0">
+                      <h3 className="text-lg font-bold text-white truncate">{service.title}</h3>
+                      <p className="text-white/90 text-xs truncate">{service.subtitle}</p>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Card Body */}
+                <div className="p-4">
+                  <ul className="space-y-2">
+                    {service.tests.map((test, index) => (
+                      <li key={index} className="flex items-start space-x-2">
+                        <div className="flex-shrink-0 mt-0.5">
+                          <div className="w-5 h-5 rounded-full bg-red-50 flex items-center justify-center">
+                            <FaCheckCircle className="text-[#e74c3c] text-xs" />
+                          </div>
+                        </div>
+                        <div className="min-w-0">
+                          <span className="font-medium text-gray-800 text-sm">
+                            {test.name}
+                          </span>
+                          {test.desc && (
+                            <p className="text-gray-600 text-xs mt-0.5">{test.desc}</p>
+                          )}
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Read More/Less Button - Desktop Only */}
+        {!isMobile && services.length > initialServices.length && (
+          <div className="text-center mb-8">
             <button
               onClick={() => setShowAll(!showAll)}
               className="inline-flex items-center justify-center space-x-2 px-6 py-3 bg-gradient-to-r from-[#d9534f] to-[#e74c3c] text-white rounded-full hover:opacity-90 transition-all duration-300 shadow-md hover:shadow-lg"
@@ -253,7 +385,6 @@ const ServicesSection = () => {
         {/* CTA Section */}
         <div className="text-center">
           <div className="relative inline-block">
-            {/* Background decoration */}
             <div className="absolute -inset-3 bg-gradient-to-r from-[#d9534f] to-[#e74c3c] rounded-full blur-md opacity-20"></div>
 
             <a href='#contact'
@@ -264,7 +395,6 @@ const ServicesSection = () => {
                 <FaArrowRight className="group-hover:translate-x-1 transition-transform text-sm" />
               </div>
               
-              {/* Ripple effect */}
               <div className="absolute inset-0 rounded-full overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
               </div>
