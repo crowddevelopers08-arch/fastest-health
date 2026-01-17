@@ -141,7 +141,7 @@ const FastestNameSection = () => {
       <div className="max-w-7xl mx-auto">
         {/* Headline Section */}
         <div className="text-center mb-12">
-          <h1 className="text-3xl sm:text-5xl font-extrabold mb-4 leading-tight">
+          <h1 className="text-2xl sm:text-4xl font-extrabold mb-4 leading-tight">
             <span className="text-gray-900">Why We're the </span>
             <span
               className="bg-gradient-to-r bg-clip-text text-transparent inline-block transform hover:scale-105 transition-transform duration-300"
@@ -285,15 +285,15 @@ const FastestNameSection = () => {
           <div className="flex flex-wrap justify-center gap-6">
             <div className="flex items-center gap-2 text-gray-600">
               <Shield className="w-5 h-5" style={{ color: "#135c8e" }} />
-              <span className="text-lg font-semibold">100% Safe</span>
+              <span className="text-lg text-black font-semibold">100% Safe</span>
             </div>
             <div className="flex items-center gap-2 text-gray-600">
               <Award className="w-5 h-5" style={{ color: "#135c8e" }} />
-              <span className="text-lg font-semibold">Certified Labs</span>
+              <span className="text-lg text-black font-semibold">Certified Labs</span>
             </div>
             <div className="flex items-center gap-2 text-gray-600">
               <Clock className="w-5 h-5" style={{ color: "#135c8e" }} />
-              <span className="text-lg font-semibold">Quick Results</span>
+              <span className="text-lg text-black font-semibold">Quick Results</span>
             </div>
           </div>
         </div>

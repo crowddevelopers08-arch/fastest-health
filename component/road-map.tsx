@@ -76,7 +76,7 @@ function Roadmap() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center  max-sm:mb-5 mb-8">
-          <h2 className="text-3xl sm:text-5xl font-bold text-gray-900  max-sm:mb-2 mb-4">
+          <h2 className="text-2xl sm:text-4xl font-bold text-gray-900  max-sm:mb-2 mb-4">
             Road Map
           </h2>
           <div className="flex items-center justify-center  max-sm:mt-3 mt-6 space-x-3">

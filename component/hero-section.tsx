@@ -60,7 +60,7 @@ export default function HeroCarousel() {
     <div className="relative w-full overflow-hidden bg-gray-100 py-6 sm:py-8 md:py-10">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 ">
         {/* Slides Container with Rounded Corners */}
-        <div className="relative w-full h-[144px]  sm:h-[550px] md:h-[600px] lg:h-[443px] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl">
+        <div className="relative w-full h-[144px] max-sm:h-[125px] sm:h-[550px] md:h-[600px] lg:h-[443px] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl">
           {slides.map((slide, index) => (
             <div
               key={slide.id}

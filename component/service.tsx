@@ -22,7 +22,7 @@ const ServicesSection = () => {
       image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&h=250&fit=crop",
       originalPrice: "₹3500",
       price: "₹2499",
-      description: "Essential Health Panel - Covers over 60 vital parameters. Comprehensive Gold Panel - Heart, Liver, Kidney, and Vitamin profiles",
+      description: "Essential Health Panel. Comprehensive Gold Panel",
       features: [
         "Covers over 60 vital parameters",
         "Complete Heart, Liver & Kidney profile"
@@ -172,7 +172,7 @@ const ServicesSection = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="text-center max-sm:mb-4 mb-8">
-          <h1 className="text-3xl md:text-5xl font-bold text-gray-900">
+          <h1 className="text-2xl md:text-4xl font-bold text-gray-900">
             Our <span className="bg-gradient-to-r bg-clip-text text-transparent inline-block transform hover:scale-105 transition-transform duration-300"
             style={{
               backgroundImage: 'linear-gradient(135deg, #135c8e 100%)'

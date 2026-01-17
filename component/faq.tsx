@@ -137,8 +137,13 @@ const FAQComponent = () => {
               <div className="absolute bg-gradient-to-r from-[#d9534f] to-[#e74c3c] rounded-full blur-md opacity-20"></div>
 
               <a href='#contact' className="relative flex bg-gradient-to-r from-[#d9534f] to-[#e74c3c] text-white px-6 max-sm:px-5 py-4 rounded-full text-base font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 group">
-                <div className="flex items-center space-x-2">
-                  <span> Ready to start? Book your 15-min collection</span>
+                <div className="flex  items-center space-x-2">
+                  <span className="block sm:hidden">
+                      Book your consultation
+                    </span>
+                    <span className="hidden sm:block">
+                      Ready to start? Book your 15-min consultation
+                  </span>
                   <ArrowBigRight className="group-hover:translate-x-1 transition-transform text-sm" />
                 </div>
 

@@ -81,9 +81,16 @@ const GoogleReviewsSection = () => {
   const visibleCards = getVisibleCards();
 
   return (
-    <div id='reviews' className="min-h-screen py-9 max-sm:py-5 px-4 sm:px-6 lg:px-8 relative overflow-hidden" style={{
-      background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)'
-    }}>
+    <div className="min-h-screen py-10 max-sm:py-5 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
+      {/* Background Decorations */}
+      <div
+        className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-5 blur-3xl"
+        style={{ background: "#135c8e" }}
+      ></div>
+      <div
+        className="absolute bottom-0 left-0 w-96 h-96 rounded-full opacity-5 blur-3xl"
+        style={{ background: "#d9534f" }}
+      ></div>
       {/* Decorative Background */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 opacity-30">
         <div className="absolute top-20 left-10 w-64 h-64 rounded-full blur-3xl" style={{background: '#135c8e'}}></div>
