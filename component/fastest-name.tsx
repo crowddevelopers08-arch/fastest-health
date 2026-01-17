@@ -174,10 +174,10 @@ const FastestNameSection = () => {
               <div className="relative mb-4">
                 <div 
                   className="absolute w-20 h-20 rounded-full blur-lg opacity-30"
-                  style={{ backgroundColor: feature.color }} 
+                  // style={{ backgroundColor: feature.color }} 
                 ></div>
                 <div
-                  className="relative w-20 h-20 rounded-full flex items-center justify-center shadow-xl transform group-hover:scale-110 transition-all duration-300"
+                  className="relative w-20 h-20 rounded-full flex items-center justify-center transform group-hover:scale-110 transition-all duration-300"
                   style={{
                     background: `linear-gradient(135deg, ${feature.color} 0%, ${feature.color}dd 100%)`,
                   }}
@@ -221,7 +221,7 @@ const FastestNameSection = () => {
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-center text-lg font-bold leading-tight" style={{ color: feature.color }}>
+                    <h3 className="text-center text-lg font-bold leading-tight">
                       {feature.title}
                     </h3>
                   </div>
