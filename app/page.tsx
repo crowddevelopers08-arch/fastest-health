@@ -15,8 +15,8 @@ export default function Home() {
     <>
       <Navbar />
       <HeroCarousel />
-      <RoadmapComponent />
       <ServicesSection />
+      <RoadmapComponent />
       <WhyChooseSection />
       <FastestNameSection />
       <GoogleReviewsSection />

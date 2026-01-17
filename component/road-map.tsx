@@ -13,9 +13,9 @@ interface Step {
 const steps: Step[] = [
   {
     number: 1,
-    title: "Instant Digital Booking",
+    title: "Instant Digital Booking ",
     description:
-      "Choose your required test or health package and book your slot instantly through our seamless online platform",
+      "Choose your required test or health package and book your slot instantly through our seamless online platform.",
     icon: <Calendar className="w-8 h-8" />,
   },
   {
@@ -29,14 +29,14 @@ const steps: Step[] = [
     number: 3,
     title: "AI-Powered Lab Processing",
     description:
-      "Your samples are transported in advanced temperature-controlled kits to our NABL-accredited labs for rapid, high-precision processing",
+      "Your samples are transported in advanced temperature-controlled kits to our NABL-accredited labs for rapid, high-precision processing.",
     icon: <Microscope className="w-8 h-8" />,
   },
   {
     number: 4,
-    title: "90-Minute Digital Reports",
+    title: "90-Minute Digital Reports ",
     description:
-      "Receive your verified digital reports via WhatsApp, SMS, and Email in just 90 minutes, allowing you to track your health at the speed of life",
+      "Receive your verified digital reports via WhatsApp, SMS, and Email in just 90 minutes, allowing you to track your health at the speed of life.",
     icon: <FileText className="w-8 h-8" />,
   },
 ];
@@ -72,116 +72,107 @@ function Roadmap() {
   }, []);
 
   return (
-    <div className="bg-gradient-to-br from-gray-50 to-gray-100 py-10 max-sm:py-5 px-4 sm:px-6 lg:px-8">
+    <div className="bg-gradient-to-br from-gray-50 to-gray-100 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-10 max-sm:mb-3">
-          <h2 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-2">
+        {/* Header */}
+        <div className="text-center  max-sm:mb-5 mb-8">
+          <h2 className="text-3xl sm:text-5xl font-bold text-gray-900  max-sm:mb-2 mb-4">
             Road Map
-            <div className="flex items-center justify-center max-sm:mt-2 mt-6 md:mt-3 space-x-3">
-              <div className="w-16 h-0.5 bg-gradient-to-r from-[#d9534f] to-[#e74c3c] rounded-full"></div>
-              <div className="w-2 h-2 bg-[#d9534f] rounded-full animate-pulse"></div>
-              <div className="w-16 h-0.5 bg-gradient-to-r from-[#e74c3c] to-[#d9534f] rounded-full"></div>
-            </div>
           </h2>
-          <p className="text-md text-gray-600 max-w-2xl mx-auto">
+          <div className="flex items-center justify-center  max-sm:mt-3 mt-6 space-x-3">
+            <div className="w-16 h-0.5 bg-gradient-to-r from-[#135c8e] to-[#135c8e] rounded-full"></div>
+            <div className="w-2 h-2 bg-[#135c8e] rounded-full animate-pulse"></div>
+            <div className="w-16 h-0.5 bg-gradient-to-r from-[#135c8e] to-[#135c8e] rounded-full"></div>
+          </div>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto  max-sm:mt-1 mt-4">
             Your health journey, simplified in four seamless steps
           </p>
         </div>
 
+        {/* Single Row Layout with Wavy Line */}
         <div className="relative">
-          <div
-            className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 top-0 bottom-0 w-1 "
-            style={{
-              background: "linear-gradient(135deg, #d9534f 0%, #e74c3c 100%)",
-            }}
-          ></div>
+          {/* Wavy Connecting Line - Desktop Only */}
+          <div className="hidden lg:block absolute top-16 left-0 right-0 h-24">
+            <svg
+              className="w-full h-full"
+              viewBox="0 0 1200 100"
+              preserveAspectRatio="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <defs>
+                <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" style={{ stopColor: '#135c8e', stopOpacity: 1 }} />
+                  <stop offset="100%" style={{ stopColor: '#135c8e', stopOpacity: 1 }} />
+                </linearGradient>
+              </defs>
+              <path
+                d="M 0 50 Q 150 20, 300 50 T 600 50 T 900 50 T 1200 50"
+                stroke="url(#lineGradient)"
+                strokeWidth="3"
+                fill="none"
+                strokeDasharray="10,5"
+              />
+              {/* Dots on the line */}
+              <circle cx="150" cy="35" r="6" fill="#135c8e" />
+              <circle cx="450" cy="65" r="6" fill="#135c8e" />
+              <circle cx="750" cy="35" r="6" fill="#135c8e" />
+              <circle cx="1050" cy="65" r="6" fill="#135c8e" />
+            </svg>
+          </div>
 
-          <div className="space-y-12 lg:space-y-2">
+          {/* Steps Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
             {steps.map((step, index) => (
               <div
                 key={step.number}
                 ref={(el) => {
                   stepRefs.current[index] = el;
                 }}
-                className={`relative transition-all duration-700 transform max-sm:mb-4 ${
+                className={`transition-all duration-700 transform ${
                   visibleSteps.has(index)
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-10"
                 }`}
                 style={{ transitionDelay: `${index * 150}ms` }}
               >
-                <div
-                  className={`flex flex-col lg:flex-row items-center gap-8 ${
-                    index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"
-                  }`}
-                >
-                  <div className="flex-1 w-full">
-                    <div
-                      className={`bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 p-8 transform hover:-translate-y-1 ${
-                        index % 2 === 0 ? "lg:mr-8" : "lg:ml-8"
-                      }`}
-                    >
-                      <div className="flex items-start gap-6">
-                        <div className="flex-shrink-0">
-                          <div
-                            className="w-16 h-16 rounded-full flex items-center justify-center text-white shadow-lg"
-                            style={{
-                              background:
-                                "linear-gradient(135deg, #d9534f 0%, #e74c3c 100%)",
-                            }}
-                          >
-                            {step.icon}
-                          </div>
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-3">
-                            <span
-                              className="inline-flex items-center justify-center w-8 h-8 rounded-full text-white text-sm font-bold"
-                              style={{
-                                background:
-                                  "linear-gradient(135deg, #d9534f 0%, #e74c3c 100%)",
-                              }}
-                            >
-                              {step.number}
-                            </span>
-                            <h3 className="text-xl font-bold text-gray-900">
-                              {step.title}
-                            </h3>
-                          </div>
-                          <p className="text-gray-600 leading-relaxed text-md">
-                            {step.description}
-                          </p>
-                        </div>
-                      </div>
+                <div className="flex flex-col items-center text-center">
+                  {/* Icon Circle */}
+                  <div className="relative mb-6">
+                    <div className="absolute inset-0  rounded-full blur-lg opacity-30"></div>
+                    <div className="relative w-24 h-24 bg-[#135c8e] rounded-full flex items-center justify-center text-white shadow-xl">
+                      {step.icon}
                     </div>
                   </div>
 
-                  <div className="hidden lg:flex flex-shrink-0 w-20 items-center justify-center">
-                    <div
-                      className={`w-6 h-6 rounded-full bg-gradient-to-br from-red-500 to-red-600 shadow-lg ring-4 ring-white transition-all duration-500 ${
-                        visibleSteps.has(index) ? "scale-100" : "scale-0"
-                      }`}
-                    ></div>
+                  {/* Content Card */}
+                  <div className="bg-white rounded-2xl shadow-lg p-6 w-full hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                    <h3 className="text-xl font-bold text-gray-900 mb-3">
+                      {step.title}
+                    </h3>
+                    <p className="text-gray-600 text-sm leading-relaxed">
+                      {step.description}
+                    </p>
                   </div>
-
-                  <div className="flex-1 hidden lg:block"></div>
                 </div>
               </div>
             ))}
           </div>
         </div>
-        <div className="mt-10 max-sm:mt-8 text-center">
-          <div className="relative inline-block">
-            {/* Background decoration */}
-            <div className="absolute -inset-3 bg-gradient-to-r from-[#d9534f] to-[#e74c3c] rounded-full blur-md opacity-20"></div>
 
-            <a href="#contact" className="flex relative bg-gradient-to-r from-[#d9534f] to-[#e74c3c] text-white px-6 py-3 rounded-full text-base font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 group">
+        {/* CTA Button */}
+        <div className="mt-16  max-sm:mt-8 text-center">
+          <div className="relative inline-block">
+            <div className="absolute bg-gradient-to-r from-[#d9534f] to-[#e74c3c] rounded-full blur-md opacity-20"></div>
+
+            <a
+              href="#contact"
+              className="flex relative bg-gradient-to-r from-[#d9534f] to-[#e74c3c] text-white px-8 py-4 rounded-full text-lg font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 group"
+            >
               <div className="flex items-center space-x-2">
                 <span>Get Started Today</span>
                 <FaArrowRight className="group-hover:translate-x-1 transition-transform text-sm" />
               </div>
 
-              {/* Ripple effect */}
               <div className="absolute inset-0 rounded-full overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
               </div>

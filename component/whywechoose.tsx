@@ -1,79 +1,47 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { Zap, ShieldCheck, ChevronLeft, ChevronRight } from "lucide-react";
+import React from "react";
+import { Zap } from "lucide-react";
 
 const WhyChooseSection = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-
   const features = [
     {
-      image: "https://cdn-icons-png.flaticon.com/512/3774/3774299.png",
+      image: "/15-minutes.png",
       title: "Rapid 15-Min Collection",
+      number: "01",
       color: "#d9534f",
     },
     {
-      image: "https://cdn-icons-png.flaticon.com/512/854/854901.png",
+      image: "https://cdn-icons-png.flaticon.com/512/411/411763.png",
       title: "Precision Logistics",
+      number: "02",
       color: "#135c8e",
     },
     {
-      image: "https://cdn-icons-png.flaticon.com/512/4712/4712109.png",
+      image: "/settings.png",
       title: "AI-Driven Processing",
+      number: "03",
       color: "#d9534f",
     },
     {
-      image: "https://cdn-icons-png.flaticon.com/512/6195/6195699.png",
+      image: "/smartphone.png",
       title: "Multi-Stage Validation",
+      number: "04",
       color: "#135c8e",
     },
     {
-      image: "https://cdn-icons-png.flaticon.com/512/3588/3588592.png",
+      image: "/map.png",
       title: "Modern Diagnostic Journey",
+      number: "05",
       color: "#d9534f",
     },
     {
-      image: "https://cdn-icons-png.flaticon.com/512/1163/1163661.png",
+      image: "/weather-radar.png",
       title: "Accuracy Maintained Regardless of Weather or Traffic Conditions",
+      number: "06",
       color: "#135c8e",
     },
   ];
-
-  // Auto-play carousel
-  useEffect(() => {
-    if (!isAutoPlaying) return;
-
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % features.length);
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, [isAutoPlaying, features.length]);
-
-  const goToNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % features.length);
-    setIsAutoPlaying(false);
-  };
-
-  const goToPrev = () => {
-    setCurrentIndex((prev) => (prev - 1 + features.length) % features.length);
-    setIsAutoPlaying(false);
-  };
-
-  const goToSlide = (index: number) => {
-    setCurrentIndex(index);
-    setIsAutoPlaying(false);
-  };
-
-  // Get visible cards (current, prev, next)
-  const getVisibleCards = () => {
-    const prev = (currentIndex - 1 + features.length) % features.length;
-    const next = (currentIndex + 1) % features.length;
-    return { prev, current: currentIndex, next };
-  };
-
-  const visibleCards = getVisibleCards();
 
   return (
     <div className="py-10 max-sm:py-5 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
@@ -92,7 +60,7 @@ const WhyChooseSection = () => {
 
       <div className="max-w-7xl mx-auto relative">
         {/* Header Section */}
-        <div className="text-center mb-16 max-sm:mb-6 lg:mb-10">
+        <div className="text-center mb-16 max-sm:mb-8 lg:mb-12">
           <h2 className="text-2xl md:text-4xl lg:text-4xl font-bold text-white mb-2 drop-shadow-lg">
             Why Choose Fastest Health Tech
           </h2>
@@ -103,147 +71,59 @@ const WhyChooseSection = () => {
           </div>
         </div>
 
-        {/* Carousel Container */}
-        <div className="relative max-sm:mb-5 mb-16">
-          {/* Desktop: 3 Cards View */}
-          <div className="hidden lg:flex items-center justify-center gap-6 px-16">
-            {[visibleCards.prev, visibleCards.current, visibleCards.next].map(
-              (index, position) => {
-                const feature = features[index];
-                const isCenter = position === 1;
-
-                return (
-                  <div
-                    key={index}
-                    className={`transition-all duration-500 ${
-                      isCenter ? "scale-110 z-20" : "scale-90 opacity-60 z-10"
-                    }`}
-                    style={{ flex: "0 0 calc(33.333% - 1rem)" }}
-                  >
-                    <div className="bg-white bg-opacity-10 backdrop-blur-lg rounded-3xl p-8 border border-white border-opacity-20 hover:bg-opacity-20 transition-all duration-300 hover:shadow-2xl relative">
-                      {/* Glow Effect */}
-                      <div
-                        className={`absolute inset-0 rounded-3xl transition-opacity duration-300 blur-xl ${
-                          isCenter ? "opacity-100" : "opacity-0"
-                        }`}
-                        style={{ background: `${feature.color}33` }}
-                      ></div>
-
-                      {/* Image Container */}
-                      <div className="relative mb-6">
-                        <div
-                          className="w-20 h-20 rounded-2xl flex items-center justify-center shadow-xl transition-all duration-300 p-4 mx-auto"
-                          style={{
-                            background: `linear-gradient(135deg, ${feature.color} 0%, ${feature.color}dd 100%)`,
-                          }}
-                        >
-                          <img
-                            src={feature.image}
-                            alt={feature.title}
-                            className="w-full h-full object-contain filter brightness-0 invert"
-                          />
-                        </div>
-                      </div>
-
-                      {/* Title */}
-                      <h3 className="text-lg font-bold text-black leading-tight text-center">
-                        {feature.title}
-                      </h3>
-
-                      {/* Decorative Corner */}
-                      <div
-                        className="absolute top-4 right-4 w-2 h-2 rounded-full"
-                        style={{ backgroundColor: feature.color }}
-                      ></div>
-                    </div>
-                  </div>
-                );
-              }
-            )}
-          </div>
-
-          {/* Mobile/Tablet: Single Card View */}
-          <div className="lg:hidden flex justify-center px-4">
-            <div className="w-full max-w-md">
-              <div className="bg-white bg-opacity-10 backdrop-blur-lg rounded-3xl p-8 border border-white border-opacity-20 hover:bg-opacity-20 transition-all duration-300 hover:shadow-2xl relative">
-                {/* Glow Effect */}
+        {/* Features Grid */}
+        <div className="mb-16 max-sm:mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-6">
+            {features.map((feature, index) => {
+              return (
                 <div
-                  className="absolute inset-0 rounded-3xl opacity-100 transition-opacity duration-300 blur-xl"
-                  style={{ background: `${features[currentIndex].color}33` }}
-                ></div>
-
-                {/* Image Container */}
-                <div className="relative mb-6">
+                  key={index}
+                  className="flex flex-col items-center text-center group"
+                >
+                  {/* Number Badge */}
                   <div
-                    className="w-24 h-24 rounded-2xl flex items-center justify-center shadow-xl transition-all duration-300 p-5 mx-auto"
-                    style={{
-                      background: `linear-gradient(135deg, ${features[currentIndex].color} 0%, ${features[currentIndex].color}dd 100%)`,
-                    }}
+                    className="relative mb-4 w-20 h-20 rounded-full flex items-center justify-center shadow-xl transition-all duration-300 group-hover:scale-110"
+                      // style={{
+                      //   background: `linear-gradient(135deg, ${feature.color} 0%, ${feature.color}dd 100%)`,
+                      // }}
                   >
+                    <span className="absolute -top-2 -left-2 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg">
+                      <span
+                        className="font-bold text-sm"
+                        // style={{ color: feature.color }}
+                      >
+                        {feature.number}
+                      </span>
+                    </span>
                     <img
-                      src={features[currentIndex].image}
-                      alt={features[currentIndex].title}
-                      className="w-full h-full object-contain filter brightness-0 invert"
+                      src={feature.image}
+                      alt={feature.title}
+                      className="w-10 h-10 object-contain filter brightness-0 invert"
                     />
                   </div>
+
+                  {/* Title */}
+                  <h3 className="text-sm lg:text-base font-semibold text-white leading-tight">
+                    {feature.title}
+                  </h3>
                 </div>
-
-                {/* Title */}
-                <h3 className="text-xl font-bold text-black leading-tight text-center">
-                  {features[currentIndex].title}
-                </h3>
-
-                {/* Decorative Corner */}
-                <div
-                  className="absolute top-4 right-4 w-2 h-2 rounded-full"
-                  style={{ backgroundColor: features[currentIndex].color }}
-                ></div>
-              </div>
-            </div>
+              );
+            })}
           </div>
-
-          {/* Navigation Arrows */}
-          <button
-            onClick={goToPrev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 bg-white bg-opacity-20 backdrop-blur-lg p-3 rounded-full hover:bg-opacity-30 transition-all duration-300 border border-white border-opacity-30 z-30"
-          >
-            <ChevronLeft className="w-6 h-6 text-black" />
-          </button>
-          <button
-            onClick={goToNext}
-            className="absolute right-0 top-1/2 -translate-y-1/2 bg-white bg-opacity-20 backdrop-blur-lg p-3 rounded-full hover:bg-opacity-30 transition-all duration-300 border border-white border-opacity-30 z-30"
-          >
-            <ChevronRight className="w-6 h-6 text-black" />
-          </button>
-        </div>
-
-        {/* Dots Indicator */}
-        <div className="flex justify-center gap-2 max-sm:mb-6 mb-12">
-          {features.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToSlide(index)}
-              className={`transition-all duration-300 rounded-full ${
-                index === currentIndex ? "w-8 h-3" : "w-3 h-3 opacity-50"
-              }`}
-              style={{
-                backgroundColor:
-                  index === currentIndex ? features[index].color : "#ffffff",
-              }}
-            />
-          ))}
         </div>
 
         {/* CTA Section */}
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-6 max-sm:gap-3 max-sm:mt-2 mt-12">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-6 max-sm:gap-3 max-sm:mt-2 lg:mt-6 mt-12">
           {/* Primary CTA */}
-
-          <div className=" text-center">
+          <div className="text-center">
             <div className="relative inline-block">
               {/* Background decoration */}
-              <div className="absolute -inset-3 bg-gradient-to-r from-[#d9534f] to-[#e74c3c] rounded-full blur-md opacity-20"></div>
+              <div className="absolute bg-gradient-to-r from-[#d9534f] to-[#e74c3c] rounded-full blur-md opacity-20"></div>
 
-              <a href="#contact" className="relative flex bg-gradient-to-r from-[#d9534f] to-[#e74c3c] text-white px-6 py-3 rounded-full text-base font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 group">
+              <a
+                href="#contact"
+                className="relative flex bg-gradient-to-r from-[#d9534f] to-[#e74c3c] text-white px-6 py-3 rounded-full text-base font-bold hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 group"
+              >
                 <div className="flex items-center space-x-2">
                   <span> Skip the Lab Queue – Book Now</span>
                   <Zap className="group-hover:translate-x-1 transition-transform text-sm" />
@@ -258,7 +138,10 @@ const WhyChooseSection = () => {
           </div>
 
           {/* Secondary CTA */}
-          <a href="#contact" className="group flex sm:w-auto px-9 py-3 bg-white bg-opacity-10 backdrop-blur-lg text-black rounded-full font-bold text-md border-2 border-white border-opacity-30 hover:bg-opacity-20 hover:border-opacity-50 shadow-xl transform hover:-translate-y-2 transition-all duration-300">
+          <a
+            href="#contact"
+            className="group flex sm:w-auto px-9 py-3 bg-white bg-opacity-10 backdrop-blur-lg text-bike rounded-full font-bold text-md border-2 border-white border-opacity-30 hover:bg-opacity-20 hover:border-opacity-50 shadow-xl transform hover:-translate-y-2 transition-all duration-300"
+          >
             <span className="flex items-center justify-center font-semibold gap-2">
               Learn More About Us
               <svg
@@ -276,19 +159,18 @@ const WhyChooseSection = () => {
               </svg>
             </span>
           </a>
-        </div>
+          {/* Trust Badge */}
+          <div className="text-center max-sm:mt-4 ">
+            <div className="inline-flex items-center gap-3 bg-white bg-opacity-10 backdrop-blur-lg px-6 py-3 rounded-full border border-white border-opacity-20">
+              <span className="hidden sm:inline text-black font-semibold text-sm">
+               Presence in 250+ Cities Across | India
+              </span>
 
-        {/* Trust Badge */}
-        <div className="text-center max-sm:mt-4 mt-12">
-          <div className="inline-flex items-center gap-3 bg-white bg-opacity-10 backdrop-blur-lg px-6 py-3 rounded-full border border-white border-opacity-20">
-             <span className="hidden sm:inline text-black font-semibold text-sm">
-                NABL-Accredited | ISO-Certified | Trusted by 100,000+ Users
-            </span>
-
-            {/* Mobile only */}
-            <span className="sm:hidden text-black font-semibold text-sm">
-                NABL-Accredited | ISO-Certified | Trusted
-            </span>
+              {/* Mobile only */}
+              <span className="sm:hidden text-black font-semibold text-sm">
+                Presence in 250+ Cities Across | India
+              </span>
+            </div>
           </div>
         </div>
       </div>

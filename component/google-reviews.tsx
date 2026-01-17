@@ -9,53 +9,37 @@ const GoogleReviewsSection = () => {
 
   const reviews = [
     {
-      name: "Priya Sharma",
-      location: "Chennai",
+      name: "Mrs. Minal Desai",
+      location: "Kamothe, Navi Mumbai",
       rating: 5,
-      date: "2 days ago",
-      review: "Absolutely amazing service! The phlebotomist arrived in exactly 15 minutes as promised. The entire process was so smooth and professional. Got my reports in 90 minutes via WhatsApp. This is the future of healthcare!",
+      date: "7 days ago",
+      review: "Fastest's prompt response was a lifesaver for my twin daughters. Within 15 minutes, their wellness executive collected blood samples, and we received the test reports in under 2 hours. we initiated treatment the same day. Incredible service!",
       avatar: "https://ui-avatars.com/api/?name=Priya+Sharma&background=d9534f&color=fff&bold=true"
     },
     {
-      name: "Rajesh Kumar",
-      location: "Bangalore",
+      name: "Sheeba Jaikrishnan",
+      location: "Ghatkopar, Mumbai",
       rating: 5,
-      date: "5 days ago",
-      review: "I was skeptical about the 90-minute promise, but they delivered! Super professional team, painless collection, and the digital reports were so detailed. Highly recommend for anyone who values their time.",
+      date: "2 months ago",
+      review: "Fastest Health Test truly lives up to its name with quick and hassle-free service. Special thanks to Tanu for always being supportive and making the process smooth and easy.",
       avatar: "https://ui-avatars.com/api/?name=Rajesh+Kumar&background=135c8e&color=fff&bold=true"
     },
     {
-      name: "Anitha Reddy",
-      location: "Hyderabad",
+      name: "Vikram More",
+      location: "Khandeshwar, Navi Mumbai",
       rating: 5,
-      date: "1 week ago",
-      review: "Best health tech service I've ever used! No more waiting in long lab queues. The phlebotomist was so gentle and hygienic. The entire family is now using this service. Thank you for making healthcare so convenient!",
+      date: "5 months ago",
+      review: "Was able to download the Fastest App with ease and book the test . Very good service . Really fast . Their person came within 15 minutes and got the report also very fast service.Thanks to Fastest. Highly recommended",
       avatar: "https://ui-avatars.com/api/?name=Anitha+Reddy&background=d9534f&color=fff&bold=true"
     },
     {
-      name: "Vikram Patel",
-      location: "Mumbai",
-      rating: 5,
-      date: "1 week ago",
-      review: "Lightning fast and accurate! I booked a full body checkup and the entire experience was seamless. From booking to receiving reports, everything was done in under 2 hours. NABL certified reports gave me complete confidence.",
+      name: "Subramanian Iyer",
+      location: "Model, Town CHS Ltd",
+      rating: 4,
+      date: "7 days ago",
+      review: "The Representative landed dot on time & also just a few minutes b4 time for PP. He was quite polite & professional & had come with sealed branded packets of gloves & injection besides swabs! The ops team totally surprised me with THE FASTEST Report of my lifetime!!",
       avatar: "https://ui-avatars.com/api/?name=Vikram+Patel&background=135c8e&color=fff&bold=true"
     },
-    {
-      name: "Meera Nair",
-      location: "Kochi",
-      rating: 5,
-      date: "2 weeks ago",
-      review: "Incredible service for busy professionals! I could get my blood tests done at home during my work break. The 15-minute arrival is not a gimmick - it's real! Reports came exactly when promised. Five stars!",
-      avatar: "https://ui-avatars.com/api/?name=Meera+Nair&background=d9534f&color=fff&bold=true"
-    },
-    {
-      name: "Arjun Menon",
-      location: "Delhi",
-      rating: 5,
-      date: "3 weeks ago",
-      review: "Game changer for health diagnostics! The AI-powered processing is so fast without compromising accuracy. The phlebotomist was certified and very professional. This is what modern healthcare should look like!",
-      avatar: "https://ui-avatars.com/api/?name=Arjun+Menon&background=135c8e&color=fff&bold=true"
-    }
   ];
 
   // Auto-play carousel
@@ -103,7 +87,7 @@ const GoogleReviewsSection = () => {
       {/* Decorative Background */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 opacity-30">
         <div className="absolute top-20 left-10 w-64 h-64 rounded-full blur-3xl" style={{background: '#135c8e'}}></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 rounded-full blur-3xl" style={{background: '#d9534f'}}></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 rounded-full blur-3xl" style={{background: '#135c8e'}}></div>
       </div>
 
       <div className="max-w-7xl mx-auto">
@@ -134,9 +118,9 @@ const GoogleReviewsSection = () => {
               at Fastest Health Tech
             </span>
             <div className="flex items-center justify-center max-sm:mt-3 mt-6 lg:mt-3 space-x-3">
-            <div className="w-16 h-0.5 bg-gradient-to-r from-[#d9534f] to-[#e74c3c] rounded-full"></div>
-            <div className="w-2 h-2 bg-[#d9534f] rounded-full animate-pulse"></div>
-            <div className="w-16 h-0.5 bg-gradient-to-r from-[#e74c3c] to-[#d9534f] rounded-full"></div>
+            <div className="w-16 h-0.5 bg-gradient-to-r from-[#135c8e] to-[#135c8e] rounded-full"></div>
+            <div className="w-2 h-2 bg-[#135c8e] rounded-full animate-pulse"></div>
+            <div className="w-16 h-0.5 bg-gradient-to-r from-[#135c8e] to-[#135c8e] rounded-full"></div>
           </div>
           </h2>
           
@@ -187,9 +171,9 @@ const GoogleReviewsSection = () => {
           <button
             onClick={goToNext}
             className="absolute right-0 right-[-13] top-1/2 -translate-y-1/2 bg-white p-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 border-2 z-30 hover:scale-110"
-            style={{borderColor: '#d9534f'}}
+            style={{borderColor: '#135c8e'}}
           >
-            <ChevronRight className="w-6 h-6" style={{color: '#d9534f'}} />
+            <ChevronRight className="w-6 h-6" style={{color: '#135c8e'}} />
           </button>
         </div>
 
@@ -219,7 +203,7 @@ const GoogleReviewsSection = () => {
                   <div className=" text-center">
             <div className="relative inline-block">
               {/* Background decoration */}
-              <div className="absolute -inset-3 bg-gradient-to-r from-[#d9534f] to-[#e74c3c] rounded-full blur-md opacity-20"></div>
+              <div className="absolute bg-gradient-to-r from-[#d9534f] to-[#e74c3c] rounded-full blur-md opacity-20"></div>
 
               <a href='#contact' className="flex relative bg-gradient-to-r from-[#d9534f] to-[#e74c3c] text-white px-6 py-3 rounded-full text-base font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 group">
                 <div className="flex items-center space-x-2">
@@ -239,16 +223,16 @@ const GoogleReviewsSection = () => {
           {/* Trust Stats */}
           <div className="flex flex-wrap justify-center gap-8 max-sm:mt-4 mt-10">
             <div className="text-center">
-              <div className="text-lg font-bold" style={{color: '#d9534f'}}>10,000+</div>
-              <div className="text-sm text-gray-600 font-semibold">Happy Patients</div>
+              <div className="text-xl font-bold" style={{color: '#135c8e'}}>10,000+</div>
+              <div className="text-md text-gray-600 font-semibold">Happy Patients</div>
             </div>
             <div className="text-center">
-              <div className="text-lg font-bold" style={{color: '#135c8e'}}>4.9/5.0</div>
-              <div className="text-sm text-gray-600 font-semibold">Google Rating</div>
+              <div className="text-xl font-bold" style={{color: '#135c8e'}}>4.9/5.0</div>
+              <div className="text-md text-gray-600 font-semibold">Google Rating</div>
             </div>
             <div className="text-center">
-              <div className="text-lg font-bold" style={{color: '#d9534f'}}>15 Min</div>
-              <div className="text-sm text-gray-600 font-semibold">Avg. Arrival Time</div>
+              <div className="text-xl font-bold" style={{color: '#135c8e'}}>15 Min</div>
+              <div className="text-md text-gray-600 font-semibold">Avg. Arrival Time</div>
             </div>
           </div>
         </div>
@@ -275,11 +259,11 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review, isCenter }) => {
     <div className={`bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 relative h-full flex flex-col ${
       isCenter ? 'border-2' : 'border border-gray-100'
     }`} style={{
-      borderColor: isCenter ? '#d9534f' : undefined
+      borderColor: isCenter ? '#135c8e' : undefined
     }}>
       {/* Quote Icon */}
       <div className="absolute -top-4 -left-4 w-12 h-12 rounded-full flex items-center justify-center shadow-lg" style={{
-        background: 'linear-gradient(135deg, #d9534f 0%, #c9302c 100%)'
+        background: 'linear-gradient(135deg, #135c8e 0%, #135c8e 100%)'
       }}>
         <Quote className="w-6 h-6 text-white" />
       </div>
@@ -328,7 +312,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review, isCenter }) => {
 
       {/* Verified Badge */}
       <div className="absolute bottom-4 right-4">
-        <div className="flex items-center gap-1 text-xs font-semibold text-green-600 bg-green-50 px-2 py-1 rounded-full">
+        <div className="flex items-center gap-1 text-xs font-semibold text-[#135c8e] bg-green-50 px-2 py-1 rounded-full">
           <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
           </svg>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist,Outfit } from "next/font/google";
 import "./globals.css";
+import MobileActionBar from "@/component/mobilebar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,6 +29,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${outfit.variable} antialiased`}
       >
         {children}
+        <MobileActionBar />
       </body>
     </html>
   );

@@ -23,7 +23,7 @@ const Footer = () => {
   ];
 
   const policies = [
-    { name: 'Privacy Policy', href: '#' },
+    { name: 'Privacy Policy', href: '/privacy-policy' },
     { name: 'Terms & Conditions', href: '#' },
     { name: 'Refund Policy', href: '#' },
     { name: 'FAQs', href: '#' },
