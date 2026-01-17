@@ -15,7 +15,7 @@ const WhyChooseSection = () => {
       image: "https://cdn-icons-png.flaticon.com/512/411/411763.png",
       title: "Precision Logistics",
       number: "02",
-      color: "#135c8e",
+      color: "#d9534f",
     },
     {
       image: "/settings.png",
@@ -27,7 +27,7 @@ const WhyChooseSection = () => {
       image: "/smartphone.png",
       title: "Multi-Stage Validation",
       number: "04",
-      color: "#135c8e",
+      color: "#d9534f",
     },
     {
       image: "/map.png",
@@ -39,7 +39,7 @@ const WhyChooseSection = () => {
       image: "/weather-radar.png",
       title: "Accuracy Maintained Regardless of Weather or Traffic Conditions",
       number: "06",
-      color: "#135c8e",
+      color: "#d9534f",
     },
   ];
 
@@ -90,7 +90,7 @@ const WhyChooseSection = () => {
                     <span className="absolute -top-2 -left-2 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg">
                       <span
                         className="font-bold text-sm"
-                        // style={{ color: feature.color }}
+                        style={{ color: feature.color }}
                       >
                         {feature.number}
                       </span>

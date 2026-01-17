@@ -187,7 +187,7 @@ const FastestNameSection = () => {
               </div>
 
               {/* Title */}
-              <h3 className="text-center text-md font-bold leading-tight max-w-[140px] group-hover:scale-105 transition-transform duration-300">
+              <h3 className="text-center text-md font-bold text-black leading-tight max-w-[140px] group-hover:scale-105 transition-transform duration-300">
                 {feature.title}
               </h3>
             </div>

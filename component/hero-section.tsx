@@ -58,18 +58,18 @@ export default function HeroCarousel() {
 
   return (
     <div className="relative w-full overflow-hidden bg-gray-100 py-6 sm:py-8 md:py-10">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 ">
         {/* Slides Container with Rounded Corners */}
-        <div className="relative w-full h-[500px] sm:h-[550px] md:h-[600px] lg:h-[443px] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl">
+        <div className="relative w-full h-[144px]  sm:h-[550px] md:h-[600px] lg:h-[443px] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl">
           {slides.map((slide, index) => (
             <div
               key={slide.id}
-              className={`absolute inset-0 transition-opacity duration-1000 ${
+              className={`absolute inset-0 transition-opacity duration-1000  ${
                 index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
               }`}
             >
               {/* Background Image - No Overlay */}
-              <div className="absolute inset-0">
+              <div className="absolute inset-0 ">
                 <img
                   src={slide.image}
                   alt={slide.title}
