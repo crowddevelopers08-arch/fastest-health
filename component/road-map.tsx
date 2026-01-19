@@ -27,7 +27,7 @@ const steps: Step[] = [
   },
   {
     number: 3,
-    title: "AI-Powered Lab Processing",
+    title: "NABL Accreditred Labs Processing ",
     description:
       "Your samples are transported in advanced temperature-controlled kits to our NABL-accredited labs for rapid, high-precision processing.",
     icon: <Microscope className="w-8 h-8" />,
@@ -76,10 +76,20 @@ function Roadmap() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center  max-sm:mb-5 mb-8">
-          <h2 className="text-2xl sm:text-4xl font-bold text-gray-900  max-sm:mb-2 mb-4">
-            Road Map
-          </h2>
-          <div className="flex items-center justify-center  max-sm:mt-3 mt-6 space-x-3">
+          <h1 className="text-2xl sm:text-4xl font-extrabold mb-4 leading-tight">
+            <span className="text-gray-900">Your Health </span>
+            <span
+              className="bg-gradient-to-r bg-clip-text text-transparent inline-block transform hover:scale-105 transition-transform duration-300"
+              style={{
+                backgroundImage: "linear-gradient(135deg, #d9534f 0%, #135c8e 100%)",
+              }}
+            >
+               Check up
+            </span>
+            <br />
+            <span className="text-gray-900">Journey</span>
+          </h1>
+          <div className="flex items-center justify-center  max-sm:mt-3 mt-5 space-x-3">
             <div className="w-16 h-0.5 bg-gradient-to-r from-[#135c8e] to-[#135c8e] rounded-full"></div>
             <div className="w-2 h-2 bg-[#135c8e] rounded-full animate-pulse"></div>
             <div className="w-16 h-0.5 bg-gradient-to-r from-[#135c8e] to-[#135c8e] rounded-full"></div>

@@ -17,12 +17,12 @@ const WhyChooseSection = () => {
       number: "02",
       color: "#d9534f",
     },
-    {
-      image: "/settings.png",
-      title: "AI-Driven Processing",
-      number: "03",
-      color: "#d9534f",
-    },
+    // {
+    //   image: "/settings.png",
+    //   title: "AI-Driven Processing",
+    //   number: "03",
+    //   color: "#d9534f",
+    // },
     {
       image: "/smartphone.png",
       title: "Multi-Stage Validation",
@@ -72,8 +72,8 @@ const WhyChooseSection = () => {
         </div>
 
         {/* Features Grid */}
-        <div className="mb-16 max-sm:mb-8">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-6">
+        <div className="mb-8 max-sm:mb-8 ">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 items-center gap-8 lg:gap-6">
             {features.map((feature, index) => {
               return (
                 <div

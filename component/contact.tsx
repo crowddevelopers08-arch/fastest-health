@@ -178,7 +178,7 @@ const ContactSection = () => {
           >
             <div className="mb-8 max-sm:mb-3 lg:mb-2 flex flex-col text-center">
               <h3 className="text-3xl font-bold text-gray-900 max-sm:mb-0 mb-2">
-                Schedule Your Visit
+                Book your test now!
               </h3>
               <p className="text-gray-600">
                 Fill out the form and we'll contact you within 15 minutes
