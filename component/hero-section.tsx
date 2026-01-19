@@ -78,7 +78,7 @@ export default function HeroCarousel() {
                   ))}
         </div> */}
         <div className="relative w-full overflow-hidden rounded-2xl sm:rounded-3xl shadow-2xl bg-white
-                aspect-[8/3] sm:h-[441px] md:h-[300px] lg:h-[443px]">
+                aspect-[8/3] sm:aspect-[16/5] md:aspect-[25/9] lg:aspect-[40/15] xl:aspect-[25/9]">
           {slides.map((slide, index) => (
             <div
               key={slide.id}
@@ -89,13 +89,11 @@ export default function HeroCarousel() {
               <img
                 src={slide.image}
                 alt={slide.title}
-                className="w-full h-full object-cover sm:object-cover object-center"
+                className="w-full h-full object-cover"
               />
             </div>
           ))}
         </div>
-
-
         {/* Dot Indicators */}
         <div className="flex justify-center gap-3 mt-6 z-20">
           {slides.map((_, index) => (
