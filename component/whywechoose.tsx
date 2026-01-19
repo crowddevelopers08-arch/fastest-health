@@ -26,19 +26,19 @@ const WhyChooseSection = () => {
     {
       image: "/smartphone.png",
       title: "Multi-Stage Validation",
-      number: "04",
+      number: "03",
       color: "#d9534f",
     },
     {
       image: "/map.png",
       title: "Modern Diagnostic Journey",
-      number: "05",
+      number: "04",
       color: "#d9534f",
     },
     {
       image: "/weather-radar.png",
       title: "Accuracy Maintained Regardless of Weather or Traffic Conditions",
-      number: "06",
+      number: "05",
       color: "#d9534f",
     },
   ];

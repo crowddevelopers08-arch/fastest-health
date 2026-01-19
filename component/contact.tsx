@@ -79,7 +79,7 @@ const ContactSection = () => {
             {/* Image Carousel */}
             <div className="relative w-full h-full">
               <img
-                src="/Studio-Session.JPG"
+                src="/contact-hospital.jpg"
                 alt="Image 1 description"
                 className="absolute inset-0 w-full object-cover transition-opacity duration-500 opacity-100"
               />
