@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   MapPin,
   Phone,
@@ -12,6 +13,7 @@ import {
 } from "lucide-react";
 
 const ContactSection = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -20,6 +22,13 @@ const ContactSection = () => {
     test: "",
     message: "",
   });
+  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    success?: boolean;
+    message?: string;
+    error?: string;
+  }>({});
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -30,10 +39,88 @@ const ContactSection = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    alert("Thank you! We will contact you soon.");
+    setIsSubmitting(true);
+    setSubmitStatus({});
+
+    try {
+      // Prepare payload for TeleCRM
+      const payload = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        pincode: formData.pincode,
+        test: formData.test,
+        message: formData.message,
+        source: window.location.href,
+        formName: "Website leads",
+        consent: true
+      };
+
+      console.log("Submitting form data:", { 
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        hasPincode: !!formData.pincode,
+        hasTest: !!formData.test 
+      });
+
+      const response = await fetch("/api/leads", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json();
+
+      console.log("API Response:", result);
+
+      if (response.ok && result.success) {
+        console.log("Form submitted successfully");
+        
+        // Reset form on successful submission
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          pincode: "",
+          test: "",
+          message: "",
+        });
+        
+        // Redirect to thank you page after successful submission
+        router.push("/thank-you");
+        
+      } else {
+        // Handle server errors
+        const errorMessage = result.error || result.details || "Failed to submit form";
+        console.error("Form submission failed:", result);
+        
+        setSubmitStatus({
+          success: false,
+          error: errorMessage
+        });
+        
+        // Show error message to user
+        alert(`Error: ${errorMessage}. Please try again.`);
+      }
+    } catch (error) {
+      console.error("Form submission error:", error);
+      const errorMessage = error instanceof Error ? error.message : "Network error. Please check your connection and try again.";
+      
+      setSubmitStatus({
+        success: false,
+        error: errorMessage
+      });
+      
+      // Show error message to user
+      alert(`Error: ${errorMessage}`);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -53,7 +140,6 @@ const ContactSection = () => {
         <div className="text-center mb-16 max-sm:mb-5 lg:mb-6">
           <h2 className="text-2xl md:text-4xl lg:text-4xl font-extrabold max-sm:mb-1 mb-4">
             <span className="text-gray-900 pr-2">Book Your</span>
-
             <span
               className="bg-gradient-to-r bg-clip-text text-transparent"
               style={{
@@ -74,15 +160,14 @@ const ContactSection = () => {
         <div className="grid lg:grid-cols-2 gap-8 max-sm:gap-4 lg:gap-12">
           {/* Left Side - Map & Info */}
           <div className="space-y-6">
-            {/* Map Container */}
+            {/* Image Container */}
             <div className="relative bg-white rounded-3xl overflow-hidden shadow-xl border-2 border-gray-100 h-[530px] max-sm:h-[510px]">
-            {/* Image Carousel */}
-            <div className="relative w-full h-full">
-              <img
-                src="/Studio-Session-1.JPG"
-                alt="Image 1 description"
-                className="absolute inset-0 w-full object-cover transition-opacity duration-500 opacity-100"
-              />
+              <div className="relative w-full h-full">
+                <img
+                  src="/Studio-Session-1.JPG"
+                  alt="Health Checkup"
+                  className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 opacity-100"
+                />
               </div>
             </div>
 
@@ -106,7 +191,7 @@ const ContactSection = () => {
                   Available 24/7
                 </p>
                 <a
-                  href="tel:+91 8108 149 234  "
+                  href="tel:+91 8108 149 234"
                   className="text-sm font-semibold hover:underline"
                   style={{ color: "#135c8e" }}
                 >
@@ -139,35 +224,6 @@ const ContactSection = () => {
                   info@fastest.health
                 </a>
               </div>
-
-              {/* Location Card */}
-              {/* <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-gray-100 hover:shadow-xl transition-all duration-300 group">
-                <div 
-                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300"
-                  style={{background: 'linear-gradient(135deg, #d9534f 0%, #c9302c 100%)'}}
-                >
-                  <MapPin className="w-6 h-6 text-white" />
-                </div>
-                <h4 className="font-bold text-gray-900 mb-2">Visit Us</h4>
-                <p className="text-sm text-gray-600">
-                  123 Health Street, Tiruchirappalli, Tamil Nadu - 620001
-                </p>
-              </div> */}
-
-              {/* Hours Card */}
-              {/* <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-gray-100 hover:shadow-xl transition-all duration-300 group">
-                <div 
-                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300"
-                  style={{background: 'linear-gradient(135deg, #135c8e 0%, #0a4666 100%)'}}
-                >
-                  <Clock className="w-6 h-6 text-white" />
-                </div>
-                <h4 className="font-bold text-gray-900 mb-2">Working Hours</h4>
-                <p className="text-sm text-gray-600">
-                  24/7 Service Available<br />
-                  Always here for you
-                </p>
-              </div> */}
             </div>
           </div>
 
@@ -185,7 +241,7 @@ const ContactSection = () => {
               </p>
             </div>
 
-            <div className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
               {/* Name Input */}
               <div className="relative max-sm:mb-2">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -201,7 +257,7 @@ const ContactSection = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:outline-none transition-all duration-300 text-gray-900"
+                    className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 transition-all duration-300 text-gray-900"
                     placeholder="Enter your full name"
                   />
                 </div>
@@ -224,7 +280,7 @@ const ContactSection = () => {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:outline-none transition-all duration-300 text-gray-900"
+                      className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 transition-all duration-300 text-gray-900"
                       placeholder="your@email.com"
                     />
                   </div>
@@ -245,14 +301,16 @@ const ContactSection = () => {
                       value={formData.phone}
                       onChange={handleChange}
                       required
-                      className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:outline-none transition-all duration-300 text-gray-900"
+                      pattern="[0-9]{10}"
+                      title="Please enter a valid 10-digit phone number"
+                      className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 transition-all duration-300 text-gray-900"
                       placeholder="+91 xxxxx xxxxx"
                     />
                   </div>
                 </div>
               </div>
 
-              {/* Preferred Date */}
+              {/* Pincode & Test Row */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-sm:gap-4">
                 {/* Pincode Field */}
                 <div className="relative">
@@ -285,7 +343,7 @@ const ContactSection = () => {
                       type="text"
                       name="pincode"
                       placeholder="Enter your pincode"
-                      value={formData.pincode || ""}
+                      value={formData.pincode}
                       onChange={handleChange}
                       maxLength={6}
                       pattern="[0-9]{6}"
@@ -294,6 +352,7 @@ const ContactSection = () => {
                   </div>
                 </div>
 
+                {/* Test Field */}
                 <div className="relative">
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Test
@@ -319,7 +378,7 @@ const ContactSection = () => {
                       name="test"
                       list="testSuggestions"
                       placeholder="eg: Blood test, PCOS panel, etc."
-                      value={formData.test || ""}
+                      value={formData.test}
                       onChange={handleChange}
                       className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 transition-all duration-300 text-gray-900"
                     />
@@ -368,26 +427,30 @@ const ContactSection = () => {
                     value={formData.message}
                     onChange={handleChange}
                     rows={4}
-                    className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:outline-none transition-all duration-300 resize-none text-gray-900"
+                    className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 transition-all duration-300 resize-none text-gray-900"
                     placeholder="Tell us about your health concerns or specific tests you need..."
                   ></textarea>
                 </div>
               </div>
 
               {/* Submit Button */}
-
-              <div className=" text-center max-sm:mt-5">
+              <div className="text-center max-sm:mt-5">
                 <div className="relative inline-block">
                   {/* Background decoration */}
                   <div className="absolute bg-gradient-to-r from-[#d9534f] to-[#e74c3c] rounded-full blur-md opacity-20"></div>
 
                   <button
-                    onClick={handleSubmit}
-                    className="relative bg-gradient-to-r from-[#d9534f] to-[#e74c3c] text-white px-6 py-3 rounded-full text-base font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 group"
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="relative bg-gradient-to-r from-[#d9534f] to-[#e74c3c] text-white px-6 py-3 rounded-full text-base font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 group disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <div className="flex items-center space-x-2">
-                      <span> Book Home Visit Now</span>
-                      <Send className="group-hover:translate-x-1 transition-transform text-sm" />
+                      <span>
+                        {isSubmitting ? "Submitting..." : "Book Home Visit Now"}
+                      </span>
+                      {!isSubmitting && (
+                        <Send className="group-hover:translate-x-1 transition-transform text-sm" />
+                      )}
                     </div>
 
                     {/* Ripple effect */}
@@ -396,8 +459,20 @@ const ContactSection = () => {
                     </div>
                   </button>
                 </div>
+                
+                {/* Status Messages */}
+                {submitStatus.success && (
+                  <p className="mt-4 text-green-600 font-medium">
+                    {submitStatus.message}
+                  </p>
+                )}
+                {submitStatus.error && (
+                  <p className="mt-4 text-red-600 font-medium">
+                    {submitStatus.error}
+                  </p>
+                )}
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
