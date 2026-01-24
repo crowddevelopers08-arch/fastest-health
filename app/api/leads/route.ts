@@ -203,7 +203,7 @@ export async function POST(request: Request) {
   // Log environment status on each request (for debugging)
   logEnvironmentStatus();
 
-  let data: LeadData;
+  let data: Partial<LeadData> = {};
 
   try {
     data = await request.json()
@@ -219,6 +219,9 @@ export async function POST(request: Request) {
         { status: 400 }
       )
     }
+
+    // Type assertion after validation
+    const validatedData = data as LeadData;
 
     // Check if TeleCRM environment variables are set
     if (!process.env.TELECRM_API_URL) {
@@ -256,7 +259,7 @@ export async function POST(request: Request) {
     let telecrmError = null;
 
     try {
-      telecrmResponse = await sendToTeleCRM(data);
+      telecrmResponse = await sendToTeleCRM(validatedData);
       console.log('Lead sent to TeleCRM successfully:', { 
         formName: data.formName,
         name: data.name,

@@ -166,7 +166,7 @@ const ContactSection = () => {
                 <img
                   src="/Studio-Session-1.JPG"
                   alt="Health Checkup"
-                  className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 opacity-100"
+                  className="absolute inset-0 w-full object-cover transition-opacity duration-500 opacity-100"
                 />
               </div>
             </div>
