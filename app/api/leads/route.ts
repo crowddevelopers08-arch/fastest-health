@@ -324,7 +324,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      leads: leads.map(lead => ({
+      leads: leads.map((lead: any) => ({
         id: lead.id,
         name: lead.name,
         phone: lead.phone,
