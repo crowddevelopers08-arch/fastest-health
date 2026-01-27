@@ -1,86 +1,99 @@
-export const runtime = "nodejs";
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
 
 interface LeadData {
   name: string
   phone: string
   email?: string
+  treatment?: string
+  procedure?: string
   message?: string
+  city?: string
+  age?: string
   pincode?: string
   test?: string
   source?: string
   formName?: string
   consent?: boolean
+  status?: string
 }
 
-// Debug: Log environment variables (only in development)
+// Debug: Log environment status
 function logEnvironmentStatus() {
-  console.log('Environment Check:', {
+  console.log('🔍 Environment Check:', {
     NODE_ENV: process.env.NODE_ENV,
-    TELECRM_API_URL: process.env.TELECRM_API_URL ? '***SET***' : 'NOT SET',
-    TELECRM_API_KEY: process.env.TELECRM_API_KEY ? '***SET***' : 'NOT SET',
-    // Log which .env file is being used
-    envFiles: process.env.ENV_FILE || 'default'
+    DATABASE_URL: process.env.DATABASE_URL ? '***SET***' : '❌ NOT SET',
+    TELECRM_API_URL: process.env.TELECRM_API_URL ? '***SET***' : '❌ NOT SET',
+    TELECRM_API_KEY: process.env.TELECRM_API_KEY ? '***SET***' : '❌ NOT SET',
   });
 }
 
 /**
- * Generate comprehensive form data string with all user details (for system notes)
+ * Save lead to database using Prisma
  */
-function generateFormDataString(leadData: LeadData): string {
-  const details = [];
+async function saveLeadToDatabase(leadData: LeadData, telecrmResult?: any) {
+  try {
+    console.log('💾 Saving lead to database:', {
+      name: leadData.name,
+      phone: leadData.phone,
+      email: leadData.email,
+      treatment: leadData.treatment || leadData.test
+    });
 
-  // Add all available fields with their values
-  if (leadData.name) details.push(`Name: ${leadData.name}`);
-  if (leadData.phone) details.push(`Phone: ${leadData.phone}`);
-  if (leadData.email) details.push(`Email: ${leadData.email}`);
-  if (leadData.pincode) details.push(`Pincode: ${leadData.pincode}`);
-  if (leadData.test) details.push(`Test: ${leadData.test}`);
-  if (leadData.source) details.push(`Source: ${leadData.source}`);
-  
-  // Always include consent status
-  details.push(`Consent: ${leadData.consent ? 'Yes' : 'No'}`);
-  
-  // Add message (truncated if too long)
-  if (leadData.message) {
-    const messagePreview = leadData.message.length > 100 
-      ? `${leadData.message.substring(0, 100)}...` 
-      : leadData.message;
-    details.push(`Message: ${messagePreview}`);
+    const lead = await prisma.lead.create({
+      data: {
+        name: leadData.name,
+        phone: leadData.phone,
+        email: leadData.email || null,
+        treatment: leadData.treatment || leadData.test || null,
+        procedure: leadData.procedure || leadData.test || null,
+        message: leadData.message || null,
+        pincode: leadData.pincode || null,
+        consent: leadData.consent || false,
+        source: leadData.source || null,
+        formName: leadData.formName || 'Health Checkup Form',
+        status: leadData.status || 'new',
+        telecrmSynced: telecrmResult?.synced || false,
+        telecrmId: telecrmResult?.leadId || telecrmResult?.id || null,
+      }
+    });
+
+    console.log('✅ Lead saved to database:', {
+      id: lead.id,
+      name: lead.name,
+      phone: lead.phone,
+      createdAt: lead.createdAt
+    });
+
+    return lead;
+  } catch (error) {
+    console.error('❌ Failed to save lead to database:', error);
+    throw error;
   }
-
-  // Join all details with " | " separator
-  return details.join(' | ');
 }
 
 /**
- * Send lead data to TeleCRM
+ * Send lead data to TeleCRM (optional)
  */
 async function sendToTeleCRM(leadData: LeadData) {
+  // Only send to TeleCRM if configured
+  if (!process.env.TELECRM_API_URL || !process.env.TELECRM_API_KEY) {
+    console.log('ℹ️ TeleCRM not configured, skipping external sync');
+    return null;
+  }
+
   const controller = new AbortController()
-  const timeout = setTimeout(() => controller.abort(), 15000) // 15s timeout
-
-  const endpoint = process.env.TELECRM_API_URL
-
-  if (!endpoint) {
-    throw new Error('TELECRM_API_URL environment variable is not set')
-  }
-
-  if (!process.env.TELECRM_API_KEY) {
-    throw new Error('TELECRM_API_KEY environment variable is not set')
-  }
+  const timeout = setTimeout(() => controller.abort(), 15000)
 
   try {
-    // Generate comprehensive form data string with all user details (for system notes)
-    const formDataString = generateFormDataString(leadData);
-
-    // Prepare the TeleCRM payload according to their API structure
     const telecrmPayload = {
       fields: {
-        Id: "", // Leave empty for new leads
+        Id: "",
         name: leadData.name,
         email: leadData.email || "",
-        phone: leadData.phone.replace(/\D/g, ''), // Only digits
+        phone: leadData.phone.replace(/\D/g, ''),
         city_1: leadData.pincode || "",
         message: leadData.message || "",
         select_the_procedure: leadData.test || "",
@@ -100,25 +113,17 @@ async function sendToTeleCRM(leadData: LeadData) {
         "PageName": leadData.source || "https://package.fastest.health/",
         "State": "",
         "Age": "",
-        "FormName": leadData.formName || "Website leads",
+        "FormName": leadData.formName || "Health Checkup Form",
         "Pincode": leadData.pincode || "",
         "Test_Requested": leadData.test || ""
       },
       actions: [
         {
           "type": "SYSTEM_NOTE",
-          "text": `Form Name: ${leadData.formName || 'Website leads'}`
+          "text": `Form Name: ${leadData.formName || 'Health Checkup Form'}`
         },
         {
           "type": "SYSTEM_NOTE", 
-          "text": `Complete Form Data: ${formDataString}`
-        },
-        {
-          "type": "SYSTEM_NOTE",
-          "text": `Lead Source: ${leadData.source || 'https://package.fastest.health/'}`
-        },
-        {
-          "type": "SYSTEM_NOTE",
           "text": `Test Requested: ${leadData.test || 'Not specified'}`
         },
         {
@@ -132,13 +137,11 @@ async function sendToTeleCRM(leadData: LeadData) {
       ]
     }
 
-    console.log('Sending to TeleCRM:', {
-      endpoint: endpoint.replace(/(?<=:\/\/)[^@]+@/g, '***@'), // Mask credentials in logs
-      payloadSize: JSON.stringify(telecrmPayload).length,
-      fields: Object.keys(telecrmPayload.fields)
+    console.log('📤 Sending to TeleCRM:', {
+      endpoint: process.env.TELECRM_API_URL.replace(/(?<=:\/\/)[^@]+@/g, '***@'),
     });
 
-    const response = await fetch(endpoint, {
+    const response = await fetch(process.env.TELECRM_API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -150,7 +153,6 @@ async function sendToTeleCRM(leadData: LeadData) {
       signal: controller.signal,
     })
 
-    // Handle empty responses
     if (response.status === 204) {
       clearTimeout(timeout)
       return { 
@@ -161,26 +163,17 @@ async function sendToTeleCRM(leadData: LeadData) {
     }
 
     const responseText = await response.text()
-
-    // Skip HTML responses
-    if (
-      responseText.trim().startsWith('<!DOCTYPE') ||
-      responseText.trim().startsWith('<html') ||
-      responseText.includes('<!DOCTYPE html>')
-    ) {
-      console.warn(`HTML response from ${endpoint}`, {
-        status: response.status,
-        headers: Object.fromEntries(response.headers.entries()),
-        bodyPreview: responseText.slice(0, 200),
-      })
-      throw new Error('TeleCRM returned HTML response instead of JSON')
+    
+    if (responseText.trim().startsWith('<!DOCTYPE') || responseText.trim().startsWith('<html')) {
+      console.warn('⚠️ HTML response from TeleCRM');
+      return null;
     }
 
-    // Parse JSON
     try {
       const data = responseText ? JSON.parse(responseText) : {}
       if (!response.ok) {
-        throw new Error(data.message || `HTTP ${response.status} from ${endpoint}`)
+        console.warn('⚠️ TeleCRM returned error:', data.message);
+        return null;
       }
       clearTimeout(timeout)
       return {
@@ -188,146 +181,185 @@ async function sendToTeleCRM(leadData: LeadData) {
         synced: true
       }
     } catch {
-      throw new Error(`Invalid JSON from ${endpoint}: ${responseText.slice(0, 100)}...`)
+      console.warn('⚠️ Invalid JSON from TeleCRM');
+      return null;
     }
   } catch (error) {
     clearTimeout(timeout)
-    throw error instanceof Error ? error : new Error(String(error))
+    console.warn('⚠️ TeleCRM submission failed:', error instanceof Error ? error.message : String(error));
+    return null;
   }
 }
 
 /**
- * Handle POST request for health checkup form
+ * Handle POST request for lead submission
  */
-export async function POST(request: Request) {
-  // Log environment status on each request (for debugging)
+export async function POST(request: NextRequest) {
   logEnvironmentStatus();
 
   let data: Partial<LeadData> = {};
 
   try {
     data = await request.json()
+    console.log('📨 Received lead submission:', {
+      name: data.name,
+      phone: data.phone,
+      formName: data.formName
+    });
 
     // Validate required fields
-    if (!data.name || !data.phone || !data.email) {
+    if (!data.name || !data.phone) {
       return NextResponse.json(
         { 
           success: false,
           error: 'Missing required fields',
-          details: 'Please provide name, phone, and email' 
+          details: 'Please provide name and phone number' 
         },
         { status: 400 }
       )
     }
 
-    // Type assertion after validation
     const validatedData = data as LeadData;
 
-    // Check if TeleCRM environment variables are set
-    if (!process.env.TELECRM_API_URL) {
-      console.error('TELECRM_API_URL is not configured');
-      // Still accept the form but log the error
-      return NextResponse.json(
-        {
-          success: true, // Return success to user even if TeleCRM is not configured
-          message: 'Thank you! We have received your request. (Note: TeleCRM integration not configured)',
-          timestamp: new Date().toISOString(),
-          formName: data.formName || 'Website leads',
-          debug: 'TeleCRM not configured, form saved locally'
-        },
-        { status: 200 }
-      )
-    }
-
-    if (!process.env.TELECRM_API_KEY) {
-      console.error('TELECRM_API_KEY is not configured');
-      // Still accept the form but log the error
-      return NextResponse.json(
-        {
-          success: true, // Return success to user even if TeleCRM is not configured
-          message: 'Thank you! We have received your request. (Note: TeleCRM integration not configured)',
-          timestamp: new Date().toISOString(),
-          formName: data.formName || 'Website leads',
-          debug: 'TeleCRM API key missing, form saved locally'
-        },
-        { status: 200 }
-      )
-    }
-
-    // Send to TeleCRM
+    // Step 1: Try to send to TeleCRM (optional)
     let telecrmResponse = null;
-    let telecrmError = null;
-
-    try {
+    if (process.env.TELECRM_API_URL && process.env.TELECRM_API_KEY) {
       telecrmResponse = await sendToTeleCRM(validatedData);
-      console.log('Lead sent to TeleCRM successfully:', { 
-        formName: data.formName,
-        name: data.name,
-        phone: data.phone 
-      });
-
-    } catch (error) {
-      telecrmError = error;
-      console.error('TeleCRM submission failed:', { 
-        formName: data.formName, 
-        error: error instanceof Error ? error.message : String(error),
-        name: data.name,
-        phone: data.phone 
-      });
     }
 
-    // Always return success to user for better UX
+    // Step 2: Save to database (MANDATORY)
+    let dbLead = null;
+    try {
+      dbLead = await saveLeadToDatabase(validatedData, telecrmResponse);
+    } catch (error) {
+      console.error('❌ CRITICAL: Database save failed:', error);
+      // Even if database fails, we should try to at least log the lead
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Failed to save your request',
+          details: 'Please contact support directly',
+          referenceId: `ERR-${Date.now()}`,
+        },
+        { status: 500 }
+      );
+    }
+
+    // Success response
     return NextResponse.json(
       {
         success: true,
-        telecrmSynced: !telecrmError,
-        telecrmResponse: telecrmError ? null : telecrmResponse,
-        telecrmError: telecrmError ? (telecrmError instanceof Error ? telecrmError.message : String(telecrmError)) : null,
+        leadId: dbLead?.id,
+        databaseSaved: true,
+        telecrmSynced: !!telecrmResponse?.synced,
+        telecrmResponse: telecrmResponse,
         timestamp: new Date().toISOString(),
-        formName: data.formName || 'Website leads',
+        formName: data.formName || 'Health Checkup Form',
         message: 'Thank you! We have received your request and will contact you soon.'
       },
       { status: 200 }
     )
   } catch (error) {
-    const formName = data?.formName || 'Website leads';
+    console.error('❌ Lead submission error:', error)
 
-    console.error('Lead submission error:', {
-      error: error instanceof Error ? error.message : 'Unknown error',
-      timestamp: new Date().toISOString(),
-      formName: formName,
-    })
-
-    // Return user-friendly error
     return NextResponse.json(
       {
         success: false,
         error: 'Failed to process your request',
         details: 'Please try again or contact support',
         referenceId: `ERR-${Date.now()}`,
-        formName: formName
+        formName: data?.formName || 'Health Checkup Form'
       },
       { status: 500 }
     )
   }
 }
 
-// Simple GET handler for testing
-export async function GET() {
-  logEnvironmentStatus();
-  
-  return NextResponse.json(
-    { 
-      status: 'ok',
-      message: 'Leads API is running',
-      environment: {
-        nodeEnv: process.env.NODE_ENV,
-        telecrmConfigured: !!process.env.TELECRM_API_URL && !!process.env.TELECRM_API_KEY,
-        telecrmUrl: process.env.TELECRM_API_URL ? 'Configured' : 'Not configured',
-        telecrmKey: process.env.TELECRM_API_KEY ? 'Configured' : 'Not configured'
+/**
+ * Handle GET request to fetch all leads
+ */
+export async function GET(request: NextRequest) {
+  try {
+    // Parse query parameters
+    const { searchParams } = new URL(request.url);
+    const search = searchParams.get('search') || '';
+    const status = searchParams.get('status');
+    const formName = searchParams.get('formName');
+    const page = parseInt(searchParams.get('page') || '1');
+    const limit = parseInt(searchParams.get('limit') || '100');
+    const skip = (page - 1) * limit;
+
+    // Build where clause
+    const where: any = {};
+
+    if (search) {
+      where.OR = [
+        { name: { contains: search, mode: 'insensitive' } },
+        { phone: { contains: search, mode: 'insensitive' } },
+        { email: { contains: search, mode: 'insensitive' } },
+        { treatment: { contains: search, mode: 'insensitive' } },
+        { message: { contains: search, mode: 'insensitive' } },
+        { pincode: { contains: search, mode: 'insensitive' } },
+      ];
+    }
+
+    if (status && status !== 'all') {
+      where.status = status;
+    }
+
+    if (formName && formName !== 'all') {
+      where.formName = formName;
+    }
+
+    // Fetch leads with pagination
+    const [leads, total] = await Promise.all([
+      prisma.lead.findMany({
+        where,
+        orderBy: { createdAt: 'desc' },
+        skip,
+        take: limit,
+      }),
+      prisma.lead.count({ where }),
+    ]);
+
+    return NextResponse.json({
+      success: true,
+      leads: leads.map(lead => ({
+        id: lead.id,
+        name: lead.name,
+        phone: lead.phone,
+        email: lead.email,
+        treatment: lead.treatment,
+        procedure: lead.procedure,
+        message: lead.message,
+        city: lead.city,
+        age: lead.age,
+        pincode: lead.pincode,
+        consent: lead.consent,
+        source: lead.source,
+        formName: lead.formName,
+        status: lead.status,
+        telecrmSynced: lead.telecrmSynced,
+        telecrmId: lead.telecrmId,
+        createdAt: lead.createdAt.toISOString(),
+        updatedAt: lead.updatedAt.toISOString(),
+      })),
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
       },
-      instructions: process.env.TELECRM_API_URL ? 'TeleCRM is configured' : 'Please set TELECRM_API_URL and TELECRM_API_KEY in .env.local'
-    },
-    { status: 200 }
-  )
+    }, { status: 200 });
+  } catch (error) {
+    console.error('Error fetching leads:', error);
+    return NextResponse.json(
+      {
+        success: false,
+        error: 'Failed to fetch leads',
+        details: error instanceof Error ? error.message : 'Unknown error',
+      },
+      { status: 500 }
+    );
+  }
 }

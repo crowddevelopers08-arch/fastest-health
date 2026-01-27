@@ -45,26 +45,22 @@ const ContactSection = () => {
     setSubmitStatus({});
 
     try {
-      // Prepare payload for TeleCRM
+      // Prepare payload - IMPORTANT: Map 'test' to 'treatment' and 'procedure'
       const payload = {
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
         pincode: formData.pincode,
-        test: formData.test,
+        test: formData.test, // Keep for TeleCRM
+        treatment: formData.test, // Map to treatment for Prisma
+        procedure: formData.test, // Map to procedure for Prisma
         message: formData.message,
         source: window.location.href,
-        formName: "Website leads",
+        formName: "Health Checkup Form", // Updated form name
         consent: true
       };
 
-      console.log("Submitting form data:", { 
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        hasPincode: !!formData.pincode,
-        hasTest: !!formData.test 
-      });
+      console.log("📤 Submitting form data:", payload);
 
       const response = await fetch("/api/leads", {
         method: "POST",
@@ -76,10 +72,13 @@ const ContactSection = () => {
 
       const result = await response.json();
 
-      console.log("API Response:", result);
+      console.log("📥 API Response:", result);
 
       if (response.ok && result.success) {
-        console.log("Form submitted successfully");
+        console.log("✅ Form submitted successfully!");
+        console.log("💾 Database saved:", result.databaseSaved);
+        console.log("🔗 TeleCRM synced:", result.telecrmSynced);
+        console.log("🆔 Lead ID:", result.leadId);
         
         // Reset form on successful submission
         setFormData({
@@ -97,7 +96,7 @@ const ContactSection = () => {
       } else {
         // Handle server errors
         const errorMessage = result.error || result.details || "Failed to submit form";
-        console.error("Form submission failed:", result);
+        console.error("❌ Form submission failed:", result);
         
         setSubmitStatus({
           success: false,
@@ -108,7 +107,7 @@ const ContactSection = () => {
         alert(`Error: ${errorMessage}. Please try again.`);
       }
     } catch (error) {
-      console.error("Form submission error:", error);
+      console.error("❌ Form submission error:", error);
       const errorMessage = error instanceof Error ? error.message : "Network error. Please check your connection and try again.";
       
       setSubmitStatus({
@@ -116,12 +115,12 @@ const ContactSection = () => {
         error: errorMessage
       });
       
-      // Show error message to user
       alert(`Error: ${errorMessage}`);
     } finally {
       setIsSubmitting(false);
     }
   };
+
 
   return (
     <div className="min-h-screen py-10 max-sm:py-5 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
