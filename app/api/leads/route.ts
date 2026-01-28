@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
+import { NextRequest, NextResponse } from 'next/server';
+import { PrismaClient } from '../../../lib/generated/prisma/client';
 
 const prisma = new PrismaClient()
 
@@ -42,6 +42,7 @@ async function saveLeadToDatabase(leadData: LeadData, telecrmResult?: any) {
       treatment: leadData.treatment || leadData.test
     });
 
+    // Try with explicit type assertion if needed
     const lead = await prisma.lead.create({
       data: {
         name: leadData.name,
@@ -50,6 +51,8 @@ async function saveLeadToDatabase(leadData: LeadData, telecrmResult?: any) {
         treatment: leadData.treatment || leadData.test || null,
         procedure: leadData.procedure || leadData.test || null,
         message: leadData.message || null,
+        city: leadData.city || null, // Add city field
+        age: leadData.age || null,   // Add age field
         pincode: leadData.pincode || null,
         consent: leadData.consent || false,
         source: leadData.source || null,
@@ -58,7 +61,7 @@ async function saveLeadToDatabase(leadData: LeadData, telecrmResult?: any) {
         telecrmSynced: telecrmResult?.synced || false,
         telecrmId: telecrmResult?.leadId || telecrmResult?.id || null,
       }
-    });
+    } as any); // Add type assertion as temporary fix
 
     console.log('✅ Lead saved to database:', {
       id: lead.id,

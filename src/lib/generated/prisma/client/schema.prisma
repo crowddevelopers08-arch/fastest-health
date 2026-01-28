@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/lib/generated/prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Lead {
+  id            String   @id @default(cuid())
+  name          String
+  phone         String
+  email         String?
+  treatment     String?
+  procedure     String?
+  message       String?
+  city          String?
+  age           String?
+  pincode       String? // Make sure this exists
+  consent       Boolean  @default(false)
+  source        String?
+  formName      String   @default("Website leads")
+  status        String   @default("new")
+  telecrmSynced Boolean  @default(false)
+  telecrmId     String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([phone])
+  @@index([email])
+  @@index([status])
+  @@index([formName])
+  @@index([createdAt])
+  @@index([telecrmSynced])
+}
