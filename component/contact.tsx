@@ -56,7 +56,7 @@ const ContactSection = () => {
         procedure: formData.test, // Map to procedure for Prisma
         message: formData.message,
         source: window.location.href,
-        formName: "Health Checkup Form", // Updated form name
+        formName: "Website Leads", // Updated form name
         consent: true
       };
 
