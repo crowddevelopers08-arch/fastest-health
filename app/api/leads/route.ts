@@ -1,5 +1,7 @@
+// import { PrismaClient } from '@prisma/client/extension';
+import { PrismaClient } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '../../../lib/generated/prisma/client';
+// import { PrismaClient } from '../../../lib/generated/prisma/client';
 
 const prisma = new PrismaClient()
 
